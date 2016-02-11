@@ -1,13 +1,12 @@
-#Week 1
+# Week 1
 
-**Opdracht 1**
+## Opdracht 1
 
 - Duidelijk gespecificeerde requirements
 - Cool
 
 
-
-**Opdracht 2**
+## Opdracht 2
 
 |Term|	Software ontwikkelmethodiek|	Projectmanagement methodiek|	Opmerkingen|
 |----|----|----|----|
@@ -23,5 +22,4 @@
 |Waterfall|  Wel|Niet||
 
 
-**Opdracht 3**
-
+## Opdracht 3
