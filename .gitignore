@@ -26,6 +26,7 @@ local.properties
 .classpath
 .settings/
 .loadpath
+.recommenders/
 
 # Locally stored "Eclipse launch configurations"
 *.launch
