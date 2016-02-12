@@ -36,4 +36,15 @@
 
 ## Opdracht 7
 
-![Zie Opdracht-7.png](./Opdracht-7.png)
+![Zie Opdracht-7.png](Opdracht-7.png)
+
+
+## Opdracht 8
+Zie HistoryView.java in de opdrachten map
+
+## Opdracht 9
+Zie uitwerking op papier en
+![Zie Opdracht-9.png](Opdracht-9.png)
+
+## Opdracht 10
+Zie Opdract10.java in de opdrachten map
