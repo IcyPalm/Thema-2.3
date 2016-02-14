@@ -40,11 +40,76 @@
 
 
 ## Opdracht 8
+
 Zie HistoryView.java in de opdrachten map
 
+
 ## Opdracht 9
+
 Zie uitwerking op papier en
 ![Zie Opdracht-9.png](Opdracht-9.png)
 
+
 ## Opdracht 10
+
 Zie Opdract10.java in de opdrachten map
+
+
+## Opdracht 11
+
+
+## Opdracht 12
+
+
+## Opdracht 13
+
+
+## Opdracht 14
+
+
+## Opdracht 15
+
+
+## Opdracht 16
+
+
+## Opdracht 17
+
+
+## Opdracht 18
+
+
+## Opdracht 19
+
+
+## Opdracht 20
+
+
+## Opdracht 21
+
+
+## Opdracht 22
+
+
+## Opdracht 23
+
+
+## Opdracht 24
+
+
+## Opdracht 25
+
+
+## Opdracht 26
+
+
+## Opdracht 27
+
+
+## Opdracht 28
+
+
+## Opdracht 29
+
+
+## Opdracht 30
