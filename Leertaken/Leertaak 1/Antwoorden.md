@@ -89,6 +89,7 @@ Requirements nummeren is handig zodat tijdens het uitleggen of opsommen van requ
 
 ## Opdracht 19
 
+[![Zie Opdracht-19.svg](./Opdracht-19.svg)](./Opdracht-19.svg).
 
 ## Opdracht 20
 
