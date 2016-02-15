@@ -1,9 +1,24 @@
 # Week 1
 
 ## Opdracht 1
+Eigen antwoorden:
+- Duidelijke gespecificeerde requirements 
+- Duidelijke prijzen, betaalbaarheid
+- Kwaliteit en onderhoudbaarheid van de code
+- Schaalbaarheid
 
-- Duidelijk gespecificeerde requirements
-- Cool
+Even zoeken op google leverde het volgende artikel op:
+http://www.academicjournals.org/article/article1380714134_Nasir%20and%20Sahibuddin.pdf
+
+Dit is een literatuuronderzoek naar software ontwikkelprojecten in meerdere landen over de periode van 1990 tot 2010. Hier hebben ze gezocht naar kritische factoren binnen ontwikkelprojecten. De top 6 scorende lijst die overlapt met beide onderzoeken is:
+- Clear objectives and goals
+- Realistic schedule
+- Effective project management skills/methodologies (project manager)
+- Support from top management 
+- User/client involvement
+- Effective communication and feedback
+
+Niet noodzakelijk maar wel interessant om te weten.
 
 
 ## Opdracht 2
