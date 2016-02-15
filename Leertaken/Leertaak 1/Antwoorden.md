@@ -60,7 +60,15 @@ HOM-projecten hebben de volgende fasen:
 Gezien het feit dat een fase pas begint na het opleveren van het eindrapport van de vorige fase. Daarnaast is er een duidelijk risicologboek. Dit duidt op Prince 2 als methode.
 
 ## Opdracht 5
-
+Aan de hand van de 4 gestelde eisen gaan we kijken naar het Eelde project
+####Duidelijke gespecificeerde requirements 
+Een kijkje in de map 100 Requirements geeft het antwoord eigenlijk al, er is duidelijk aandacht besteed aan de requirements. 
+####Duidelijke prijzen, betaalbaarheid
+Er staat duidelijk vastgelegd wat de prijs wordt van het project.
+####Kwaliteit en onderhoudbaarheid van de code
+Niet goed na te zoeken op basis van de projectdocumentatie
+####Schaalbaarheid
+Niet goed na te zoeken op basis van de projectdocumentatie
 
 ## Opdracht 6
 
