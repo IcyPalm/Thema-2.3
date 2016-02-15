@@ -22,31 +22,27 @@ import multiformat.*;
 
 
 public class TestCalculator extends TestCase {
-
 	public TestCalculator(String arg0) {
 		super(arg0);
 	}
 
-	public void testOperations(){
-	
+	public void testOperations() {
 		Calculator calc = new Calculator();
-		
-		try{
-		calc.addOperand("3.2");
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("3.2",calc.secondOperand());
 
-		calc.addOperand("2.8");
-		assertEquals("3.2",calc.firstOperand());
-		assertEquals("2.8",calc.secondOperand());
-		
-		calc.add();
-		assertEquals("0.0",calc.firstOperand());
-		assertEquals("6.0",calc.secondOperand());
-		}catch(FormatException e){
+		try {
+			calc.addOperand("3.2");
+			assertEquals("0.0", calc.firstOperand());
+			assertEquals("3.2", calc.secondOperand());
+
+			calc.addOperand("2.8");
+			assertEquals("3.2", calc.firstOperand());
+			assertEquals("2.8", calc.secondOperand());
+
+			calc.add();
+			assertEquals("0.0", calc.firstOperand());
+			assertEquals("6.0", calc.secondOperand());
+		} catch (FormatException e) {
 			fail("Unexpected format exception");
 		}
 	}
-	
-	
 }
