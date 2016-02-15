@@ -17,15 +17,18 @@
  * 02111-1307  USA
  */
 package test;
-import junit.framework.TestCase;
-import multiformat.*;
 
+import junit.framework.TestCase;
+import org.junit.Test;
+
+import multiformat.*;
 
 public class TestCalculator extends TestCase {
 	public TestCalculator(String arg0) {
 		super(arg0);
 	}
 
+	@Test
 	public void testOperations() {
 		Calculator calc = new Calculator();
 
@@ -43,6 +46,23 @@ public class TestCalculator extends TestCase {
 			assertEquals("6.0", calc.secondOperand());
 		} catch (FormatException e) {
 			fail("Unexpected format exception");
+		}
+	}
+
+	@Test
+	public void testInvalidDigits() {
+		Calculator calc = new Calculator();
+		boolean thrown = false;
+		try {
+			calc.setBase(new DecimalBase());
+			calc.addOperand("3");
+			assertTrue(true);
+			calc.addOperand("A");
+			assertTrue(false);
+		} catch (FormatException e) {
+			thrown = true;
+		} finally {
+			assertTrue(thrown);
 		}
 	}
 }
