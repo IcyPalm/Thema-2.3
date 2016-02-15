@@ -24,6 +24,22 @@
 
 ## Opdracht 3
 
+HOM-projecten hebben de volgende fasen:
+
+ - Initiatie, waarin projectmanagement, betrokken partijen etc. vastgelegd
+   worden.
+   Dit is aanwezig in de vorm van een Projectinitiatiedocument.
+ - Requirements Analysis, waarin de projectspecificaties vastgelegd worden.
+   Alle onderdelen zijn uitgewerkt in de documenten "Requirements Analyse" en
+   "Beperkingen".
+ - Design, waarin de software tot in detail ontworpen wordt.
+   Verspreid over de mappen "Functioneel Ontwerp" en "Design" is ook hierover
+   alles te vinden.
+ - Development, waarin het ontwerp uitgetypt wordt.
+   De complete broncode lijkt in een document geplakt te zijn, met wat extra
+   informatie eromheen. Hoewel onhandig, is wel alles opgeleverd.
+ - Testing, waarin een testaanpak ontwikkeld en uitgevoerd wordt.
+   Ook hierover is van alles te vinden in de map "Testdocumentatie".
 
 ## Opdracht 4
 
