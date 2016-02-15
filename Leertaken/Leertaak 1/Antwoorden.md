@@ -231,21 +231,41 @@ Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
 
 ## Opdracht 21
 
+> (a / b) × (c / d)
+> = ((a / b) × c) / d
+> = ((a × c) / b) / d
+> = (a × c) / (b × d)
+
 
 ## Opdracht 22
 
+Zie [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
 
 ## Opdracht 23
 
+```java
+if (other.isZero()) {
+  throw new ArithmeticException("Division by zero");
+}
+```
+
+Zie [TestRational.java](../../Code/Leertaak 1 - Calculator/src/test/TestRational.java)
+en [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
 
 ## Opdracht 24
 
 
 ## Opdracht 25
 
+Zie [TestFormat.java](../../Code/Leertaak 1 - Calculator/src/test/TestFormat.java#L38)
+en [OctalBase.java](../../Code/Leertaak 1 - Calculator/src/multiformat/OctalBase.java).
+
 
 ## Opdracht 26
 
+Zie [TestCalculator.java](../../Code/Leertaak 1 - Calculator/src/test/TestCalculator.java#L53-L69),
+[Base.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Base.java#L74-L77)
+en [NumberBaseException.java](../../Code/Leertaak 1 - Calculator/src/multiformat/NumberBaseException.java).
 
 ## Opdracht 27
 
