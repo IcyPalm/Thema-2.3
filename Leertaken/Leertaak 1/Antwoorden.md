@@ -119,8 +119,8 @@ weer _B^n_ doen, maar op de "waarde" van de `n`-de positie in het talstelsel.
 
 **6.4:**
 
-> _value(n) = number_
-> <i>c(i) = ⌋value(i) / B^i⌊</i>
+> _value(n) = number_  
+> <i>c(i) = ⌋value(i) / B^i⌊</i>  
 > _value(i) = value(i + 1) - c(i + 1) × B^(i + 1)_
 
 Deze functies vormen samen een converter van een getal _number_ naar base _B_.
