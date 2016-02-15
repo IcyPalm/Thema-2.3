@@ -50,6 +50,42 @@ public class TestCalculator extends TestCase {
 	}
 
 	@Test
+	public void testStack() {
+		Calculator calc = new Calculator();
+		try {
+			// 6 * (3 + 2)
+			calc.addOperand("18.0");
+			calc.addOperand("6.0");
+			calc.addOperand("3.0");
+			calc.addOperand("2.0");
+			assertEquals("3.0", calc.firstOperand());
+			assertEquals("2.0", calc.secondOperand());
+
+			calc.add();
+			assertEquals("6.0", calc.firstOperand());
+			assertEquals("5.0", calc.secondOperand());
+			calc.multiply();
+			assertEquals("18.0", calc.firstOperand());
+			assertEquals("30.0", calc.secondOperand());
+
+			calc.delete();
+			assertEquals("0.0", calc.firstOperand());
+			assertEquals("18.0", calc.secondOperand());
+
+			// Deleting is a no-op if the stack was empty
+			calc.delete();
+			assertEquals("0.0", calc.firstOperand());
+			assertEquals("0.0", calc.secondOperand());
+
+			calc.delete();
+			assertEquals("0.0", calc.firstOperand());
+			assertEquals("0.0", calc.secondOperand());
+		} catch (FormatException e) {
+			fail("Unexpected format exception");
+		}
+	}
+
+	@Test
 	public void testInvalidDigits() {
 		Calculator calc = new Calculator();
 		boolean thrown = false;
