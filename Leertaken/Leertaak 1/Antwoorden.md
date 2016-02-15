@@ -275,5 +275,9 @@ en [NumberBaseException.java](../../Code/Leertaak 1 - Calculator/src/multiformat
 
 ## Opdracht 29
 
+29a: Stack
+
+Zie [TestCalculator.java](../../Code/Leertaak 1 - Calculator/src/test/TestCalculator.java#L53-L86)
+en [Calculator.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Calculator.java).
 
 ## Opdracht 30
