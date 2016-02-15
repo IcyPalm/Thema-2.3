@@ -49,6 +49,10 @@ HOM-projecten hebben de volgende fasen:
 
 ## Opdracht 6
 
+De methode beschreven in Brugali is meer iteratief. Er wordt in stappen gewerkt
+waarbij telkens de Requirements herzien kunnen worden, en delen van het systeem
+tijdens de loop van het project verder ontworpen worden. Dit houdt dus veel
+meer rekening met veranderende requirements.
 
 ## Opdracht 7
 
