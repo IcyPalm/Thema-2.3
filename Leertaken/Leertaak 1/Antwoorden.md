@@ -225,6 +225,7 @@ Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
 
 ## Opdracht 19
 
+[![Zie Opdracht-19.svg](./Opdracht-19.svg)](./Opdracht-19.svg).
 
 ## Opdracht 20
 
