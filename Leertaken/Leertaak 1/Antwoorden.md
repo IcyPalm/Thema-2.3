@@ -211,9 +211,18 @@ Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
 
 ## Opdracht 22
 
+Zie [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
 
 ## Opdracht 23
 
+```java
+if (other.isZero()) {
+  throw new ArithmeticException("Division by zero");
+}
+```
+
+Zie [TestRational.java](../../Code/Leertaak 1 - Calculator/src/test/TestRational.java)
+en [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
 
 ## Opdracht 24
 
