@@ -2,9 +2,9 @@
 
 ## Opdracht 1
 Eigen antwoorden:
-- Kwaliteit van code
+- Duidelijke gespecificeerde requirements 
 - Duidelijke prijzen, betaalbaarheid
-- Onderhoudbaarheid van de code
+- Kwaliteit en onderhoudbaarheid van de code
 - Schaalbaarheid
 
 Even zoeken op google leverde het volgende artikel op:
