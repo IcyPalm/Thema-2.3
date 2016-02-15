@@ -22,39 +22,38 @@ import junit.framework.TestCase;
 import multiformat.*;
 
 public class TestFormat extends TestCase {
-
 	public TestFormat(String arg0) {
 		super(arg0);
 	}
 
-    public void testFormatBase(){
-    	Calculator calc = new Calculator();
-    	
-    	try {
+	public void testFormatBase() {
+		Calculator calc = new Calculator();
+
+		try {
 			calc.addOperand("0.75");
 
-			assertEquals("0.75",calc.secondOperand());
+			assertEquals("0.75", calc.secondOperand());
 			calc.setBase(new BinaryBase());
-			assertEquals("0.11",calc.secondOperand());
+			assertEquals("0.11", calc.secondOperand());
 			calc.setBase(new HexBase());
-			assertEquals("0.C",calc.secondOperand());
+			assertEquals("0.C", calc.secondOperand());
 
 			calc.setFormat(new FloatingPointFormat());
-			assertEquals("C.0*10^-1.0",calc.secondOperand());
+			assertEquals("C.0*10^-1.0", calc.secondOperand());
 			calc.setBase(new BinaryBase());
-			assertEquals("1.1*10^-1.0",calc.secondOperand());
+			assertEquals("1.1*10^-1.0", calc.secondOperand());
 			calc.setBase(new DecimalBase());
-			assertEquals("7.5*10^-1.0",calc.secondOperand());
+			assertEquals("7.5*10^-1.0", calc.secondOperand());
 
 			calc.setFormat(new RationalFormat());
-			assertEquals("3.0/4.0",calc.secondOperand());
+			assertEquals("3.0/4.0", calc.secondOperand());
 			calc.setBase(new BinaryBase());
-			assertEquals("11.0/100.0",calc.secondOperand());
+			assertEquals("11.0/100.0", calc.secondOperand());
 			calc.setBase(new HexBase());
-			assertEquals("3.0/4.0",calc.secondOperand());
+			assertEquals("3.0/4.0", calc.secondOperand());
 		} catch (FormatException e) {
 			fail("Unexpected exception");
 		}
-    	
-    }
+
+  }
 }
