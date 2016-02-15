@@ -57,11 +57,19 @@ Zie Opdract10.java in de opdrachten map
 
 ## Opdracht 11
 
+Projectplan met een definitie, overzicht en risicoanalyse en daarnaast een kostenoverzicht.
+
 
 ## Opdracht 12
 
+Bij fixed price staat voor de klant absoluut vast wat het gaat kosten. Mocht het project langer duren is er minder geld voor de ontwikkellaars. Omgekeerd is er ook meer geld voor de ontwikkellaars als het korter duurt.
+
+Bij nacalculatie krijgen de ontwikkellaars een vaste hoeveelheid geld. Nadeel voor de klant hierbij is wel dat niet vast staat hoe veel het voor de klant gaat kosten.
+
 
 ## Opdracht 13
+
+Requirements nummeren is handig zodat tijdens het uitleggen of opsommen van requirements in andere documenten makkelijk gesorteerd en verwezen kan worden naar de originele requirementslijst.
 
 
 ## Opdracht 14
