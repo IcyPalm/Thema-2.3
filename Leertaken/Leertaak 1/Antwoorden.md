@@ -75,8 +75,21 @@ Zie Opdract10.java in de opdrachten map
 
 ## Opdracht 17
 
+Bij drie formats moet elk format naar twee andere formats vertaald kunnen
+worden, waarvoor een totaal van _3 × 2 = 6_ functies nodig zijn.
+
+Bij vijf formats moet elk format naar vier andere vertaald worden, waarvoor
+_5 × 4 = 20_ functies nodig zijn.
+
 
 ## Opdracht 18
+
+Voor elk format is één parser nodig die een inputstring omzet naar een Rational.
+Ook is er voor elk format één stringifier nodig die een Rational omzet naar één
+van de formats.
+
+Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
+`toString`. Bij 5 formats zijn er _5 × 2 = 10_ functies nodig.
 
 
 ## Opdracht 19
