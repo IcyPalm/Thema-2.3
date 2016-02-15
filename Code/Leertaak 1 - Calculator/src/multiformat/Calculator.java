@@ -24,7 +24,7 @@ package multiformat;
 public class Calculator {
   private Rational operand_0 = new Rational();
   private Rational operand_1 = new Rational();
-  
+
   // The current format of the calculator
   private Format format = new FixedPointFormat();
   // The current numberbase of the calculator

@@ -41,11 +41,11 @@ public abstract class Base {
   public int getBase() { return base; }
 
   /**
-   * Takes the input string and calculates the double value, using the current numberbase. 
+   * Takes the input string and calculates the double value, using the current numberbase.
    * @param number A String representation like "101.101" or "1A3.E56".
-   * @return The decimal double value of the number. 
+   * @return The decimal double value of the number.
    */
-  double parse(String number) {
+  double parse(String number) throws NumberBaseException {
     // decodes the sign
     double sign = 1.0;
     if(number.charAt(0) == '-'){
@@ -69,11 +69,16 @@ public abstract class Base {
     double result = 0.0;
     double mult = Math.pow(base,power);
     // process the number. "101.101" is 4*1 + 2*0 + 1*1 + 1*0.5 + ...
-    for(int i = 0; i < number.length(); i++)
-      if(number.charAt(i)!='.'){
-        result += mult * digits.indexOf(number.charAt(i));
+    for (int i = 0; i < number.length(); i++) {
+      if (number.charAt(i) != '.'){
+        int positionValue = digits.indexOf(number.charAt(i));
+        if (positionValue == -1) {
+          throw new NumberBaseException(base, digits, number.charAt(i));
+        }
+        result += mult * positionValue;
         mult /= base;
       }
+    }
     return result * sign;
   }
 
@@ -91,7 +96,7 @@ public abstract class Base {
       number = -number;
     }
 
-    // Determine the number of positions needed to represent the number 
+    // Determine the number of positions needed to represent the number
     // in the current numberbase. I.e. to represent 9 you need four positions ("1001").
     // The exact formula is discussed in class.
     int power = (int)Math.floor(Math.log(number+EPSILON/2)/Math.log(base));
@@ -115,4 +120,3 @@ public abstract class Base {
     return result.toString();
   }
 }
-
