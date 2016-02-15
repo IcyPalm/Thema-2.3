@@ -231,9 +231,9 @@ Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
 
 ## Opdracht 21
 
-> (a / b) × (c / d)
-> = ((a / b) × c) / d
-> = ((a × c) / b) / d
+> (a / b) × (c / d)  
+> = ((a / b) × c) / d  
+> = ((a × c) / b) / d  
 > = (a × c) / (b × d)
 
 
