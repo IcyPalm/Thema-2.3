@@ -32,10 +32,10 @@ public class Calculator {
 
   public void addOperand(String newOperand) throws FormatException {
 	  operand_1 = operand_0;
-      operand_0 = format.parse(newOperand, base);
+    operand_0 = format.parse(newOperand, base);
   }
 
-  public void add(){
+  public void add() {
     operand_0 = operand_1.plus(operand_0);
     operand_1 = new Rational();
   }
@@ -56,23 +56,23 @@ public class Calculator {
     operand_1 = new Rational();
   }
 
-  public String firstOperand(){
+  public String firstOperand() {
     return format.toString(operand_1,base);
   }
-  public String secondOperand(){
+  public String secondOperand() {
     return format.toString(operand_0,base);
   }
 
-  public void setBase(Base newBase){
+  public void setBase(Base newBase) {
     base = newBase;
   }
-  public Base getBase(){
+  public Base getBase() {
     return base;
   }
-  public void setFormat(Format newFormat){
+  public void setFormat(Format newFormat) {
     format = newFormat;
   }
-  public Format getFormat(){
+  public Format getFormat() {
     return format;
   }
 }

@@ -8,13 +8,13 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.	See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307  USA
+ * 02111-1307	USA
  */
 package multiformat;
 
@@ -112,16 +112,20 @@ public class Rational {
 	 * @return A new Rational representing the sum.
 	 */
 	public Rational plus(Rational other) {
-		if (denominator == other.denominator)
-			return new Rational(numerator + other.numerator
-								,other.denominator);
-		else
+		if (denominator == other.denominator) {
+			return new Rational(
+				numerator + other.numerator,
+				other.denominator
+			);
+		} else {
 			// a/x + b/y =
 			// (breuken gelijknamig maken)
 			// a*y/x*y + b*x/x*y = (a*y + b*x)/x*y
-			return new Rational(numerator * other.denominator +
-										denominator * other.numerator
-								,denominator * other.denominator);
+			return new Rational(
+				numerator * other.denominator + denominator * other.numerator,
+				denominator * other.denominator
+			);
+		}
 	}
 
 	/**
@@ -131,12 +135,17 @@ public class Rational {
 	 * @return The difference between the two Rationals.
 	 */
 	public Rational minus(Rational other) {
-		if (denominator == other.denominator)
-			return new Rational(numerator - other.numerator, denominator);
-		else
-			return new Rational(numerator * other.denominator -
-									denominator * other.numerator
-								,denominator * other.denominator);
+		if (denominator == other.denominator) {
+			return new Rational(
+				numerator - other.numerator,
+				denominator
+			);
+		} else {
+			return new Rational(
+				numerator * other.denominator - denominator * other.numerator,
+				denominator * other.denominator
+			);
+		}
 	}
 
 	/**
@@ -148,7 +157,8 @@ public class Rational {
 	public Rational mul(Rational other) {
 		return new Rational(
 			numerator * other.numerator,
-			denominator * other.denominator);
+			denominator * other.denominator
+		);
 	}
 
 	/**
