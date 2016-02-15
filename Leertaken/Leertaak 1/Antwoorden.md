@@ -62,7 +62,8 @@ Zie HistoryView.java in de opdrachten map
 ## Opdracht 9
 
 Zie uitwerking op papier en
-![Zie Opdracht-9.png](Opdracht-9.png)
+![Zie Opdracht-9-1.png](Opdracht-9-1.png)
+![Zie Opdracht-9-2.png](Opdracht-9-2.png)
 
 
 ## Opdracht 10
@@ -88,6 +89,7 @@ Requirements nummeren is handig zodat tijdens het uitleggen of opsommen van requ
 
 
 ## Opdracht 14
+![Zie Opdracht-14.png](Opdracht-14.png)
 
 
 ## Opdracht 15
