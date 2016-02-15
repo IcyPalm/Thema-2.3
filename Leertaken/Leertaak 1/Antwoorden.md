@@ -41,7 +41,7 @@ Niet noodzakelijk maar wel interessant om te weten.
 
 
 ## Opdracht 4
-
+Gezien het feit dat een fase pas begint na het opleveren van het eindrapport van de vorige fase. Daarnaast is er een duidelijk risicologboek. Dit duidt op Prince 2 als methode.
 
 ## Opdracht 5
 
