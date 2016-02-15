@@ -20,19 +20,22 @@ package multiformat;
 
 /**
  * Class representing a rational ('breuk').
+ *
+ * @version 0.1.0
  * @author J.Baljé: Added comments
  */
 public class Rational {
 	static final double PRECISION=10;
 	static final double EPSILON = Math.pow(10,-PRECISION);
-	
+
 	double numerator = 0.0; // teller
 	double denominator = 1.0; // noemer
 
 	/**
-	 * Create a new Rational
-	 * @param num Numerator 
-	 * @param den Denominator 
+	 * Create a new Rational from a numerator and denominator pair.
+	 *
+	 * @param num Numerator
+	 * @param den Denominator
 	 */
 	public Rational(double num, double den) {
 		numerator = num;
@@ -40,9 +43,17 @@ public class Rational {
 		simplify();
 	}
 
+	/**
+	 * Create an empty Rational (value 0).
+	 */
 	public Rational() {
 	}
 
+	/**
+	 * Create a new Rational from a Double value.
+	 *
+	 * @param number Number value.
+	 */
 	public Rational(double number) {
 		numerator = number;
 		denominator = 1.0;
@@ -51,10 +62,9 @@ public class Rational {
 	}
 
 	/**
-	 * Get rid of any decimals in the numerator. E.g. 12.5/1.0 becomes 125.0/10.0
+	 * Get rid of any decimals in the numerator. E.g. 12.5/1.0 becomes 125.0/10.0.
 	 * (Note that any decimals in the denominator aren't handled, eg 10/0.5.
-	 *  This seems an omission.)
-	 *  Seen also unittest TestRational.java
+	 * This seems an omission.)
 	 */
 	public void canonical() {
 		double num = Math.abs(numerator);
@@ -73,7 +83,6 @@ public class Rational {
 
 	/**
 	 * Simplify the rational. 125/10 becomes 25/2.
-	 *  Seen also unittest TestRational.java
 	 */
 	public void simplify() {
 		// Take the smallest from the two (10.0)
@@ -95,7 +104,8 @@ public class Rational {
 	}
 
 	/**
-	 * Add two rationals
+	 * Add two rationals.
+	 *
 	 * @param other Another Rational to add to this.
 	 * @return A new Rational representing the sum.
 	 */
@@ -104,52 +114,95 @@ public class Rational {
 			return new Rational(numerator + other.numerator
 								,other.denominator);
 		else
-			// a/x + b/y = 
+			// a/x + b/y =
 			// (breuken gelijknamig maken)
 			// a*y/x*y + b*x/x*y = (a*y + b*x)/x*y
-			return new Rational(numerator * other.denominator + 
+			return new Rational(numerator * other.denominator +
 										denominator * other.numerator
 								,denominator * other.denominator);
 	}
 
+	/**
+	 * Subtract two Rationals.
+	 *
+	 * @param other Rational to subtract from this Rational.
+	 * @return The difference between the two Rationals.
+	 */
 	public Rational minus(Rational other) {
 		if (denominator == other.denominator)
 			return new Rational(numerator - other.numerator, denominator);
 		else
-			return new Rational(numerator * other.denominator - 
+			return new Rational(numerator * other.denominator -
 									denominator * other.numerator
 								,denominator * other.denominator);
 	}
 
+	/**
+	 * Multiply by a Rational.
+	 *
+	 * @param other Rational to multiply by.
+	 * @return Product of the two Rationals.
+	 */
 	public Rational mul(Rational other) {
 		return new Rational(
 			numerator * other.numerator,
 			denominator * other.denominator);
 	}
 
+	/**
+	 * Divide by a Rational.
+	 *
+	 * @param other Rational to divide by.
+	 * @return Quotient of the two Rationals.
+	 */
 	public Rational div(Rational other) {
 		return new Rational(
 			numerator * other.denominator,
 			denominator * other.numerator);
 	}
 
+	/**
+	 * Take on the value of another Rational.
+	 *
+	 * @param other Values to use.
+	 */
 	public void copyOf(Rational other) {
 		this.numerator = other.numerator;
 		this.denominator = other.denominator;
 	}
-	
-	// Added getters and setters for unittesting purposes.
-	public double getNumerator(){
+
+	/**
+	 * Get the numerator value.
+	 *
+	 * @return Numerator.
+	 */
+	public double getNumerator() {
 		return numerator;
 	}
-	
+
+	/**
+	 * Get the denominator value.
+	 *
+	 * @return Denominator.
+	 */
 	public double getDenominator() {
 		return denominator;
 	}
-	public void setNumerator(double num){
+
+	/**
+	 * Set the numerator value.
+	 *
+	 * @param num The new numerator.
+	 */
+	public void setNumerator(double num) {
 		numerator = num;
 	}
-	
+
+	/**
+	 * Set the denominator value.
+	 *
+	 * @param num The new denominator.
+	 */
 	public void setDenominator(double den) {
 		denominator = den;
 	}
