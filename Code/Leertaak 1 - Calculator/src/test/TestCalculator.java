@@ -58,9 +58,11 @@ public class TestCalculator extends TestCase {
 			calc.addOperand("3");
 			assertTrue(true);
 			calc.addOperand("A");
-			assertTrue(false);
-		} catch (FormatException e) {
+			fail("Expected NumberBaseException");
+		} catch (NumberBaseException e) {
 			thrown = true;
+		} catch (FormatException e) {
+			fail("Expected NumberBaseException, got FormatException");
 		} finally {
 			assertTrue(thrown);
 		}

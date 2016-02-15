@@ -12,9 +12,9 @@ run: build
 	java -classpath bin ui.Command
 
 test: build-test
-	java \
-		-classpath bin:/usr/share/java/junit4.jar \
-		junit.textui.TestRunner \
-		test.TestCalculator \
-		test.TestFormat \
-		test.TestRational
+	for test in test.TestCalculator test.TestFormat test.TestRational ; do \
+		java \
+			-classpath bin:/usr/share/java/junit4.jar \
+			junit.textui.TestRunner \
+			"$$test" ; \
+	done
