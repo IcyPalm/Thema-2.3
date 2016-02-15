@@ -18,6 +18,8 @@
  */
 package multiformat;
 
+import java.lang.ArithmeticException;
+
 /**
  * Class representing a rational ('breuk').
  *
@@ -156,9 +158,13 @@ public class Rational {
 	 * @return Quotient of the two Rationals.
 	 */
 	public Rational div(Rational other) {
+		if (other.isZero()) {
+			throw new ArithmeticException("Division by zero");
+		}
 		return new Rational(
 			numerator * other.denominator,
-			denominator * other.numerator);
+			denominator * other.numerator
+		);
 	}
 
 	/**
@@ -169,6 +175,15 @@ public class Rational {
 	public void copyOf(Rational other) {
 		this.numerator = other.numerator;
 		this.denominator = other.denominator;
+	}
+
+	/**
+	 * Check if this Rational is zero.
+	 *
+	 * @return Whether this Rational is equal to Zero.
+	 */
+	public boolean isZero() {
+		return this.numerator == 0.0;
 	}
 
 	/**
