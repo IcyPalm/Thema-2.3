@@ -18,6 +18,9 @@
  */
 package multiformat;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
@@ -25,12 +28,15 @@ import java.util.LinkedList;
  */
 public class Calculator {
 	private LinkedList<Rational> operands = new LinkedList<>();
+	private ArrayList<ActionListener> actionListenerList = new ArrayList<ActionListener>();
+	private String input="";
 
 	// The current format of the calculator
 	private Format format = new FixedPointFormat();
 	// The current numberbase of the calculator
 	private Base base = new DecimalBase();
 
+	
 	/**
 	 * Add an operand to the stack.
 	 *
@@ -39,6 +45,7 @@ public class Calculator {
 	public void addOperand(String newOperand) throws FormatException {
 		Rational operand = this.format.parse(newOperand, this.base);
 		this.operands.push(operand);
+		notifyListners();
 	}
 
 	/**
@@ -61,6 +68,7 @@ public class Calculator {
 		Rational b = this.popOperand();
 		Rational a = this.popOperand();
 		this.operands.push(a.plus(b));
+		notifyListners();
 	}
 	/**
 	 * Subtract the two Rationals at the top of the stack.
@@ -69,6 +77,7 @@ public class Calculator {
 		Rational b = this.popOperand();
 		Rational a = this.popOperand();
 		this.operands.push(a.minus(b));
+		notifyListners();
 	}
 	/**
 	 * Multiply the two Rationals at the top of the stack.
@@ -77,6 +86,7 @@ public class Calculator {
 		Rational b = this.popOperand();
 		Rational a = this.popOperand();
 		this.operands.push(a.mul(b));
+		notifyListners();
 	}
 	/**
 	 * Divide the two Rationals at the top of the stack.
@@ -85,6 +95,7 @@ public class Calculator {
 		Rational b = this.popOperand();
 		Rational a = this.popOperand();
 		this.operands.push(a.div(b));
+		notifyListners();
 	}
 	/**
 	 * Remove the operand at the top of the stack, if it exists.
@@ -93,6 +104,7 @@ public class Calculator {
 		if (this.operands.size() > 0) {
 			this.operands.removeFirst();
 		}
+		notifyListners();
 	}
 
 	/**
@@ -124,14 +136,37 @@ public class Calculator {
 
 	public void setBase(Base base) {
 		this.base = base;
+		notifyListners();
 	}
 	public Base getBase() {
 		return this.base;
 	}
 	public void setFormat(Format format) {
 		this.format = format;
+		notifyListners();
 	}
 	public Format getFormat() {
 		return this.format;
+	}
+	public void addActionListener(ActionListener l){
+		actionListenerList.add(l);
+		notifyListners();
+	}
+	private void notifyListners(ActionEvent e){
+		for(ActionListener l:actionListenerList){
+			l.actionPerformed(e);
+		}
+	}
+	private void notifyListners(){
+		notifyListners(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+	}
+	
+	public void setInput(String input){
+		this.input = input;
+		notifyListners();
+		
+	}
+	public String getInput() {
+		return input;
 	}
 }
