@@ -33,12 +33,10 @@ public class OperandView extends JPanel implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Trigger");
 		if(e.getSource() instanceof Calculator){
 			calc = (Calculator) e.getSource();
 			operand1.setText(calc.firstOperand());
 			operand2.setText(calc.secondOperand());
-			System.out.println("Cool "+calc.getInput());
 			input.setText(calc.getInput());
 		}
 

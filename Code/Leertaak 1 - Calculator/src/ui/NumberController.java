@@ -129,7 +129,6 @@ public class NumberController extends JPanel implements ActionListener {
             String input = calc.getInput();
             input += source.getText();
             calc.setInput(input);
-            System.out.println("Jaj: "+calc.getInput());
         }
 
 		if(source.getText().equals("=")){
