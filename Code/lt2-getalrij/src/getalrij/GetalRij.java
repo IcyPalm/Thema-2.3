@@ -39,6 +39,11 @@ public class GetalRij {
 	}
 
 	public boolean zitErinB(int zoekWaarde) {
+		for (int value : this.getallen) {
+			if (value == zoekWaarde) {
+				return true;
+			}
+		}
 		return false;
 	}
 

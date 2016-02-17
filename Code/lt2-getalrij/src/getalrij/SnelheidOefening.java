@@ -16,6 +16,10 @@ public class SnelheidOefening {
 		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
 			System.out.println((time / 5) + "ms");
 		});
+		System.out.print("Lineair - zitErinB: ");
+		speed.bench(GetalRij::zitErinB).ifPresent((time) -> {
+			System.out.println((time / 5) + "ms");
+		});
 		System.out.println("Done");
 	}
 
