@@ -58,12 +58,12 @@ Zie de Code in lt2-opdracht2
 
 ## Opdracht 3
 
-(…)
+Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L31-L39).
 
 
 ## Opdracht 4
 
-(…)
+Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L41-L48).
 
 
 ## Opdracht 5
