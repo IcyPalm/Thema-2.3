@@ -2,7 +2,7 @@
 
 ## Opdracht 1
 Eigen antwoorden:
-- Duidelijke gespecificeerde requirements 
+- Duidelijke gespecificeerde requirements
 - Duidelijke prijzen, betaalbaarheid
 - Kwaliteit en onderhoudbaarheid van de code
 - Schaalbaarheid
@@ -14,7 +14,7 @@ Dit is een literatuuronderzoek naar software ontwikkelprojecten in meerdere land
 - Clear objectives and goals
 - Realistic schedule
 - Effective project management skills/methodologies (project manager)
-- Support from top management 
+- Support from top management
 - User/client involvement
 - Effective communication and feedback
 
@@ -61,8 +61,8 @@ Gezien het feit dat een fase pas begint na het opleveren van het eindrapport van
 
 ## Opdracht 5
 Aan de hand van de 4 gestelde eisen gaan we kijken naar het Eelde project
-####Duidelijke gespecificeerde requirements 
-Een kijkje in de map 100 Requirements geeft het antwoord eigenlijk al, er is duidelijk aandacht besteed aan de requirements. 
+####Duidelijke gespecificeerde requirements
+Een kijkje in de map 100 Requirements geeft het antwoord eigenlijk al, er is duidelijk aandacht besteed aan de requirements.
 ####Duidelijke prijzen, betaalbaarheid
 Er staat duidelijk vastgelegd wat de prijs wordt van het project.
 ####Kwaliteit en onderhoudbaarheid van de code
@@ -240,7 +240,7 @@ Bij 3 formats zijn er dus _3 × 2 = 6_ functies nodig, 3× `parse` en 3×
 
 ## Opdracht 22
 
-Zie [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
+Zie [Rational.java](../../Code/lt1-calculator/src/multiformat/Rational.java).
 
 ## Opdracht 23
 
@@ -250,23 +250,23 @@ if (other.isZero()) {
 }
 ```
 
-Zie [TestRational.java](../../Code/Leertaak 1 - Calculator/src/test/TestRational.java)
-en [Rational.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Rational.java).
+Zie [TestRational.java](../../Code/lt1-calculator/src/test/TestRational.java)
+en [Rational.java](../../Code/lt1-calculator/src/multiformat/Rational.java).
 
 ## Opdracht 24
 
 
 ## Opdracht 25
 
-Zie [TestFormat.java](../../Code/Leertaak 1 - Calculator/src/test/TestFormat.java#L38)
-en [OctalBase.java](../../Code/Leertaak 1 - Calculator/src/multiformat/OctalBase.java).
+Zie [TestFormat.java](../../Code/lt1-calculator/src/test/TestFormat.java#L38)
+en [OctalBase.java](../../Code/lt1-calculator/src/multiformat/OctalBase.java).
 
 
 ## Opdracht 26
 
-Zie [TestCalculator.java](../../Code/Leertaak 1 - Calculator/src/test/TestCalculator.java#L53-L69),
-[Base.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Base.java#L74-L77)
-en [NumberBaseException.java](../../Code/Leertaak 1 - Calculator/src/multiformat/NumberBaseException.java).
+Zie [TestCalculator.java](../../Code/lt1-calculator/src/test/TestCalculator.java#L53-L69),
+[Base.java](../../Code/lt1-calculator/src/multiformat/Base.java#L74-L77)
+en [NumberBaseException.java](../../Code/lt1-calculator/src/multiformat/NumberBaseException.java).
 
 ## Opdracht 27
 
@@ -278,7 +278,7 @@ en [NumberBaseException.java](../../Code/Leertaak 1 - Calculator/src/multiformat
 
 29a: Stack
 
-Zie [TestCalculator.java](../../Code/Leertaak 1 - Calculator/src/test/TestCalculator.java#L53-L86)
-en [Calculator.java](../../Code/Leertaak 1 - Calculator/src/multiformat/Calculator.java).
+Zie [TestCalculator.java](../../Code/lt1-calculator/src/test/TestCalculator.java#L53-L86)
+en [Calculator.java](../../Code/lt1-calculator/src/multiformat/Calculator.java).
 
 ## Opdracht 30
