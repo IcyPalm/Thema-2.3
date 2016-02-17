@@ -60,11 +60,28 @@ Zie de Code in lt2-opdracht2
 
 Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L31-L39).
 
+```java
+boolean exists = false;
+for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    exists = true;
+  }
+}
+return exists;
+```
 
 ## Opdracht 4
 
 Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L41-L48).
 
+```java
+for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    return true;
+  }
+}
+return false;
+```
 
 ## Opdracht 5
 
@@ -135,6 +152,19 @@ het gezochte getal _niet_ in de lijst zit. Immers, als we door de lijst lopen
 en we komen een getal tegen dat _groter_ is dan het gezochte getal, dan zijn
 alle volgende getallen _ook_ groter, dus allemaal _niet_ het gezochte getal. We
 kunnen dan onmiddellijk stoppen met zoeken.
+
+Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L50-L59).
+
+```java
+for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    return true;
+  } else if (value > zoekWaarde) {
+     return false;
+  }
+}
+return false;
+```
 
 In onze benchmarks komt dit echter niet uit: deze methode scoort slechter dan
 Algoritme B, maar nog wel beter dan Algoritme A. Mogelijk is de extra
