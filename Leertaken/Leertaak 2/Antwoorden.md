@@ -2,8 +2,54 @@
 
 ## Opdracht 1
 
-(…)
+### Inorder
 
+	current = root; // Begin bij de root
+	while ( current is not NULL or stack is nonempty ) 
+		if ( current is not NULL ){
+			stack.push(current);
+			current = current.leftchild
+		} 
+		else {
+			current = stack.pop
+			print current.content
+			current = current.rightchild
+	}
+
+### Preorder
+	current = root; // Begin bij de root
+	while ( current is not NULL or stack is nonempty ){
+		if ( current is not NULL ){
+			print current.content
+			push current
+			current = current.leftchild
+		} 
+		else {
+			current = stack.pop
+			current = current.rightchild
+		}
+	}
+
+### Postorder
+	current = root; // Begin bij de root
+	while ( current is not NULL or stack is nonempty ){
+		if ( current is not NULL ){
+			stack.push(current)
+			current = current.leftchild
+		} 
+		else {
+			current = stack.pop
+			if ( current.secondPop ){
+				print current.content
+				current = stack.pop
+			} 
+			else{
+				current.setSecondPop
+				push current
+				current = current.rightchild
+			}
+		}
+	}
 
 ## Opdracht 2
 
