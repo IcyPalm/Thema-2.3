@@ -130,8 +130,21 @@ tussen de methoden. (Of dat terecht is, …)
 
 ## Opdracht 6
 
-(…)
+In een vooraf gesorteerde lijst kunnen we nog één situatie versnellen: wanneer
+het gezochte getal _niet_ in de lijst zit. Immers, als we door de lijst lopen
+en we komen een getal tegen dat _groter_ is dan het gezochte getal, dan zijn
+alle volgende getallen _ook_ groter, dus allemaal _niet_ het gezochte getal. We
+kunnen dan onmiddellijk stoppen met zoeken.
 
+In onze benchmarks komt dit echter niet uit: deze methode scoort slechter dan
+Algoritme B, maar nog wel beter dan Algoritme A. Mogelijk is de extra
+if-conditie `value > zoekWaarde` de schuldige.
+
+```
+Linear        - zitErinA: 381.1027ns
+Linear        - zitErinB: 275.7311ns
+Linear Sorted - zitErinC: 322.1291ns
+```
 
 ## Opdracht 7
 

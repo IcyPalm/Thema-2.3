@@ -13,12 +13,16 @@ public class SnelheidOefening {
 	public static void main(String[] args) {
 		SnelheidOefening speed = new SnelheidOefening(200, 100000);
 		speed.init();
-		System.out.print("Lineair - zitErinA: ");
+		System.out.print("Linear        - zitErinA: ");
 		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
 			System.out.println((time / 200) + "ns");
 		});
-		System.out.print("Lineair - zitErinB: ");
+		System.out.print("Linear        - zitErinB: ");
 		speed.bench(GetalRij::zitErinB).ifPresent((time) -> {
+			System.out.println((time / 200) + "ns");
+		});
+		System.out.print("Linear Sorted - zitErinC: ");
+		speed.benchSorted(GetalRij::zitErinC).ifPresent((time) -> {
 			System.out.println((time / 200) + "ns");
 		});
 		System.out.println("Done");
@@ -28,6 +32,7 @@ public class SnelheidOefening {
 	private int listSize = 100000;
 	private int sampleSize = 1;
 	private GetalRij list;
+	private GetalRij sortedList;
 
   /**
 	 * Create a sort algorithm benchmark with the specified sample and list size.
@@ -46,25 +51,30 @@ public class SnelheidOefening {
 		for (int i = 0; i < 5; i++) {
 			this.list = new GetalRij(this.listSize, 2 * this.listSize);
 		}
+		this.sortedList = new GetalRij(this.listSize, 2 * this.listSize);
+		this.sortedList.sorteer();
+	}
+
+	public OptionalDouble benchSorted(BiPredicate<GetalRij, Integer> contains) {
+		return this.bench(this.sortedList, contains);
 	}
 
 	public OptionalDouble bench(BiPredicate<GetalRij, Integer> contains) {
+		return this.bench(this.list, contains);
+	}
+
+	public OptionalDouble bench(GetalRij list, BiPredicate<GetalRij, Integer> contains) {
 		Collection<Long> samples = new ArrayList<>(sampleSize);
 		// Reuse seed for fair comparison.
 		Random random = new Random(this.seed);
 		for (int i = 0; i < this.sampleSize; i++) {
 			int getal = random.nextInt(2 * this.listSize);
 			long start = System.nanoTime();
-			contains.test(this.list, getal);
+			contains.test(list, getal);
 			samples.add(System.nanoTime() - start);
 		}
 		return samples.stream()
 			.mapToLong(n -> n)
 			.average();
-	}
-
-	// Hulpmethode voor tijdsbepaling
-	private long time() {
-		return System.currentTimeMillis();
 	}
 }
