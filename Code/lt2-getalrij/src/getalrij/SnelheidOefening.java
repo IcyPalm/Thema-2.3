@@ -11,7 +11,8 @@ public class SnelheidOefening {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		SnelheidOefening speed = new SnelheidOefening(5, 100000);
+		SnelheidOefening speed = new SnelheidOefening(200, 100000);
+		speed.init();
 		System.out.print("Lineair - zitErinA: ");
 		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
 			System.out.println((time / 5) + "ms");
@@ -26,29 +27,35 @@ public class SnelheidOefening {
 	private long seed = new Random().nextLong();
 	private int listSize = 100000;
 	private int sampleSize = 1;
+	private GetalRij list;
 
   /**
 	 * Create a sort algorithm benchmark with the specified sample and list size.
 	 */
-	protected SnelheidOefening(int sampleSize, int listSize) {
+	public SnelheidOefening(int sampleSize, int listSize) {
 		this.sampleSize = sampleSize;
 		this.listSize = listSize;
 	}
 	/**
 	 * Create a sort algorithm benchmark with the default sample and list size.
 	 */
-	protected SnelheidOefening() {
+	public SnelheidOefening() {
 	}
 
-	protected OptionalDouble bench(BiPredicate<GetalRij, Integer> contains) {
+	public void init() {
+		for (int i = 0; i < 5; i++) {
+			this.list = new GetalRij(this.listSize, 2 * this.listSize);
+		}
+	}
+
+	public OptionalDouble bench(BiPredicate<GetalRij, Integer> contains) {
 		Collection<Long> samples = new ArrayList<>(sampleSize);
 		// Reuse seed for fair comparison.
 		Random random = new Random(this.seed);
 		for (int i = 0; i < this.sampleSize; i++) {
-			GetalRij gr = new GetalRij(this.listSize, 2 * this.listSize);
 			int getal = random.nextInt(2 * this.listSize);
 			long start = this.time();
-			contains.test(gr, getal);
+			contains.test(this.list, getal);
 			samples.add(this.time() - start);
 		}
 		return samples.stream()
