@@ -29,7 +29,13 @@ public class GetalRij {
 	}
 
 	public boolean zitErinA(int zoekWaarde) {
-		return false;
+		boolean exists = false;
+		for (int value : this.getallen) {
+			if (value == zoekWaarde) {
+				exists = true;
+			}
+		}
+		return exists;
 	}
 
 	public boolean zitErinB(int zoekWaarde) {

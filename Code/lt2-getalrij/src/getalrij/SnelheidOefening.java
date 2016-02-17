@@ -12,6 +12,10 @@ public class SnelheidOefening {
 	 */
 	public static void main(String[] args) {
 		SnelheidOefening speed = new SnelheidOefening(5, 100000);
+		System.out.print("Lineair - zitErinA: ");
+		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
+			System.out.println((time / 5) + "ms");
+		});
 		System.out.println("Done");
 	}
 
