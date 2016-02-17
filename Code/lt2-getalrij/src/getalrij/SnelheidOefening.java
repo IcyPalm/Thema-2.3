@@ -15,11 +15,11 @@ public class SnelheidOefening {
 		speed.init();
 		System.out.print("Lineair - zitErinA: ");
 		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
-			System.out.println((time / 5) + "ms");
+			System.out.println((time / 200) + "ns");
 		});
 		System.out.print("Lineair - zitErinB: ");
 		speed.bench(GetalRij::zitErinB).ifPresent((time) -> {
-			System.out.println((time / 5) + "ms");
+			System.out.println((time / 200) + "ns");
 		});
 		System.out.println("Done");
 	}
@@ -54,9 +54,9 @@ public class SnelheidOefening {
 		Random random = new Random(this.seed);
 		for (int i = 0; i < this.sampleSize; i++) {
 			int getal = random.nextInt(2 * this.listSize);
-			long start = this.time();
+			long start = System.nanoTime();
 			contains.test(this.list, getal);
-			samples.add(this.time() - start);
+			samples.add(System.nanoTime() - start);
 		}
 		return samples.stream()
 			.mapToLong(n -> n)
