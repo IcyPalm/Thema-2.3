@@ -7,7 +7,7 @@
 
 ## Opdracht 2
 
-(…)
+Zie de Code in lt2-opdracht2
 
 
 ## Opdracht 3
