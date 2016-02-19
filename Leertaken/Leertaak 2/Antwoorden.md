@@ -152,8 +152,40 @@ Linear Sorted - zitErinC: 13.836ms
 
 ## Opdracht 7
 
-(…)
+De zoektijd van een binair zoekalgoritme zal een stuk minder zijn. Gemiddeld
+hebben de lineaire varianten namelijk _n / 2_ stappen nodig, terwijl een binair
+algoritme slechts _log<sub>2</sub>(n)_ stappen nodig heeft.
 
+Bij 100,000 items verwachten we van een lineair algoritme gemiddeld 50,000
+stappen. Bij een binair algoritme verwachten we 17 stappen, ongeveer 3000×
+minder. Elke stap kost bij een binair algoritme wel iets meer tijd dan bij een
+lineair algoritme, dus de tijdswinst zal minder dan 3000× zijn.
+
+Zie [GetalRij.java](../../Code/lt2-getalrij/src/getalrij/GetalRij.java#L61-L76).
+
+```
+Linear        - zitErinA: 13.317ms
+Linear        - zitErinB: 11.344ms
+Linear Sorted - zitErinC: 13.537ms
+Binary Sorted - zitErinD: 0.391ms
+```
+
+`zitErinD` is hier ongeveer _13.5 / 0.4 =_ 34× zo snel als de lineaire
+varianten. Dat is veel, maar nog lang geen 3000×! We vermoeden dat dit verschil
+veroorzaakt wordt doordat lineaire zoekfuncties van meer VM en hardware-
+optimalisaties gebruik kunnen maken. Zo interessant is dat ook niet, want dit
+algoritme is al best vlug! :)
+
+Als de lijst verdubbeld wordt, zal een lineaire zoekfunctie gemiddeld 2× zoveel
+stappen nodig hebben. Een binaire zoekfunctie heeft dan slechts **één** extra
+stap nodig:
+
+```
+Linear        - zitErinA: 23.414ms
+Linear        - zitErinB: 22.065ms
+Linear Sorted - zitErinC: 21.863ms
+Binary Sorted - zitErinD: 0.269ms
+```
 
 ## Opdracht 8
 

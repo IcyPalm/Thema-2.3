@@ -59,6 +59,19 @@ public class GetalRij {
 	}
 
 	public boolean zitErinD(int zoekWaarde) {
+		int low = 0;
+		int high = this.getallen.length - 1;
+		while (high >= low) {
+			int mid = (high + low) / 2;
+			int value = this.getallen[mid];
+			if (zoekWaarde < value) {
+				high = mid - 1;
+			} else if (zoekWaarde > value) {
+				low = mid + 1;
+			} else  {
+				return true;
+			}
+		}
 		return false;
 	}
 

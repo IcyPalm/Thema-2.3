@@ -16,6 +16,7 @@ public class SnelheidOefening {
 		printResult("Linear        - zitErinA", speed.bench(GetalRij::zitErinA));
 		printResult("Linear        - zitErinB", speed.bench(GetalRij::zitErinB));
 		printResult("Linear Sorted - zitErinC", speed.benchSorted(GetalRij::zitErinC));
+		printResult("Binary Sorted - zitErinD", speed.benchSorted(GetalRij::zitErinD));
 
 		System.out.println("Done");
 	}
