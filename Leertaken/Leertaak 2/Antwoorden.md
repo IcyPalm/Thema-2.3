@@ -196,7 +196,12 @@ doorlopen.
 
 ## Opdracht 9
 
-(…)
+Het binaire algoritme is orde _O(log n)_. Het algoritme deelt de lijst telkens
+in twee delen op en schrijft per stap de _helft_ van de lijst af. Een
+verdubbeling van de lengte van de lijst is dus slechts _één_ extra stap voor een
+binair algoritme. De lengte van de lijst die onderzocht kan worden in _m_
+stappen is _2<sup>m</sup>_. Dus, het aantal stappen dat nodig is om een lijst
+met _n_ elementen te doorlopen is _log<sub>2</sub>(n)_.
 
 
 ## Opdracht 10
