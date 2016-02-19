@@ -189,7 +189,9 @@ Binary Sorted - zitErinD: 0.269ms
 
 ## Opdracht 8
 
-(…)
+Het lineaire algoritme is orde _O(n)_, want als er een extra item aan een lijst
+toegevoegd wordt heeft het algoritme ook een extra stap nodig om de lijst te
+doorlopen.
 
 
 ## Opdracht 9
