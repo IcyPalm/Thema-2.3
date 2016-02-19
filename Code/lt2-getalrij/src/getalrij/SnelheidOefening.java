@@ -45,9 +45,7 @@ public class SnelheidOefening {
 	}
 
 	public void init() {
-		for (int i = 0; i < 5; i++) {
-			this.list = new GetalRij(this.listSize, 2 * this.listSize);
-		}
+		this.list = new GetalRij(this.listSize, 2 * this.listSize);
 		this.sortedList = new GetalRij(this.listSize, 2 * this.listSize);
 		this.sortedList.sorteer();
 	}
