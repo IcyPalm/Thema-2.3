@@ -1,9 +1,8 @@
 package getalrij;
 
 import java.util.function.BiPredicate;
-import java.util.Collection;
-import java.util.ArrayList;
 import java.util.OptionalDouble;
+import java.util.stream.LongStream;
 import java.util.Random;
 
 public class SnelheidOefening {
@@ -15,15 +14,15 @@ public class SnelheidOefening {
 		speed.init();
 		System.out.print("Linear        - zitErinA: ");
 		speed.bench(GetalRij::zitErinA).ifPresent((time) -> {
-			System.out.println((time / 200) + "ns");
+			System.out.println(time + "ns");
 		});
 		System.out.print("Linear        - zitErinB: ");
 		speed.bench(GetalRij::zitErinB).ifPresent((time) -> {
-			System.out.println((time / 200) + "ns");
+			System.out.println(time + "ns");
 		});
 		System.out.print("Linear Sorted - zitErinC: ");
 		speed.benchSorted(GetalRij::zitErinC).ifPresent((time) -> {
-			System.out.println((time / 200) + "ns");
+			System.out.println(time + "ns");
 		});
 		System.out.println("Done");
 	}
@@ -64,7 +63,7 @@ public class SnelheidOefening {
 	}
 
 	public OptionalDouble bench(GetalRij list, BiPredicate<GetalRij, Integer> contains) {
-		Collection<Long> samples = new ArrayList<>(sampleSize);
+		LongStream.Builder samples = LongStream.builder();
 		// Reuse seed for fair comparison.
 		Random random = new Random(this.seed);
 		for (int i = 0; i < this.sampleSize; i++) {
@@ -73,8 +72,6 @@ public class SnelheidOefening {
 			contains.test(list, getal);
 			samples.add(System.nanoTime() - start);
 		}
-		return samples.stream()
-			.mapToLong(n -> n)
-			.average();
+		return samples.build().average();
 	}
 }
