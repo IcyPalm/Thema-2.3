@@ -206,7 +206,36 @@ met _n_ elementen te doorlopen is _log<sub>2</sub>(n)_.
 
 ## Opdracht 10
 
-(…)
+**Wat is de verzameling trainingsitems T?**
+T bevat alle namen van items: {Mercedes SLK 2001, Porsche 911 1982, Renault Laguna 1995, Saab Viggen 1975}
+
+**Wat is de verzameling features F?**
+F bevat: AC en ABS
+
+
+**Hoe ziet het alfabet er in dit geval uit (“the set of categories”)?**
+Zo: {Hoog,Hoog,Midden,Laag}
+
+**Hoe ziet de sequence of symbols eruit voor T? (“taking each item and looking at its categorie”).**
+
+|Categorie|Frequentie f<sub>i</sub>|
+|----|----|
+|Hoog|f<sub>i</sub> = 2/4=1/2|
+|Midden|f<sub>i</sub> = 1/4|
+|Laag|f<sub>i</sub> = 1/4|
+
+
+
+|Item|Categorie|_f_<sub>_categorie_</sub>|I<sub>T</sub>|
+|----|----|----|----|
+|Mercedes SLK 2001|Hoog|_f_<sub>_Hoog_ = 1/2|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/2 log<sub>2</sub>(1/2) = 1/2 x -1 = -1/2|
+|Porsche 911 1982|Hoog|_f_<sub>_Hoog_ = 1/2|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/2 log<sub>2</sub>(1/2) = 1/2 x -1 = -1/2|
+|Renault Laguna 1995|Midden|_f_<sub>_Midden_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/4 log<sub>2</sub>(1/4) = 1/4 x -2 = -1/2|
+|Saab Viggen 1975|Laag|_f_<sub>_Laag_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>)= 1/4 log<sub>2</sub>(1/4) = 1/4 x -2 = -1/2|
+<!-- ![equation](http://www.sciweavers.org/tex2img.php?eq=2%2F4%3D1%2F2	&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) -->
+
+
+
 
 
 ## Opdracht 11
