@@ -216,7 +216,7 @@ F bevat: AC en ABS
 
 **Hoe ziet het alfabet er in dit geval uit (“the set of categories”)?**
 
-Zo: {Hoog, Hoog, Midden, Laag}
+Zo: {Hoog, Midden, Laag}
 
 **Hoe ziet de sequence of symbols eruit voor T? (“taking each item and looking at its category.”)**
 
