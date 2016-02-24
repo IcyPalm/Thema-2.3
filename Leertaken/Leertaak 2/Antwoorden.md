@@ -281,7 +281,7 @@ _M = 2_ ("Ja" of "Nee")
 
 ## Opdracht 13
 
-(…)
+![GetalRij.java](../../Code/lt2-opdracht-classifier/src/Klassendiagram.png)
 
 
 ## Opdracht 14
