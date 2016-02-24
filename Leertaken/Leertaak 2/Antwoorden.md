@@ -379,7 +379,20 @@ Hier een wat ondoorzichtige beschrijving van hoe het algoritme doorlopen wordt:
 
 ## Opdracht 11
 
-(…)
+Naar onze mening is er weinig over te zeggen, aangezien het helemaal afhangt van
+welke features bekend zijn, maar op basis van details in de vraagstelling leiden
+we het volgende af:
+
+Er zijn _n_ categorieën en ook _n_ bladeren, oftewel elke categorie komt één
+keer voor in de boom. Dan zijn er _log<sub>2</sub>(n)_ features nodig, om elke
+categorie uniek te identificeren. Als er meer features gebruikt worden, moeten
+categorieën meerdere malen in de boom opgenomen worden, wat niet gaat passen.
+(Immers, _|categorieën| = |bladeren|_, dus één categorie tweemaal is een andere
+categorie negeren.) Als er minder features gebruikt worden, moeten er ook
+categorieën genegeerd worden.
+
+Voor _n_ categorieën zijn dus _log<sub>2</sub>(n)_ features nodig.
+Dat is _O(log n)_.
 
 
 ## Opdracht 12
