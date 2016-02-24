@@ -220,20 +220,54 @@ Zo: {Hoog, Midden, Laag}
 
 **Hoe ziet de sequence of symbols eruit voor T? (“taking each item and looking at its category.”)**
 
+| Item | Categorie |
+|------|-----------|
+| Mercedes SLK 2001   | Hoog   |
+| Porsche 911 1982    | Hoog   |
+| Renault Laguna 1995 | Midden |
+| Saab Viggen 1975    | Laag   |
+
+**Wat is het aantal elementen in T?**
+
+> |T| = 4
+
+**Wat is het aantal symbolen “Hoog” in de sequence?**
+
+> |{item ∈ T | category(item) = Hoog}| = 2
+
+**Met de vorige twee kun je de frequentie uitrekenen van categorieën.**
+
 |Categorie|Frequentie f<sub>i</sub>|
 |----|----|
-|Hoog|f<sub>i</sub> = 2/4=1/2|
-|Midden|f<sub>i</sub> = 1/4|
-|Laag|f<sub>i</sub> = 1/4|
+|Hoog|f<sub>i</sub> = 2/4 = ½|
+|Midden|f<sub>i</sub> = ¼|
+|Laag|f<sub>i</sub> = ¼|
 
-|Item|Categorie|_f_<sub>_categorie_</sub>|I<sub>T</sub>|
-|----|----|----|----|
-|Mercedes SLK 2001|Hoog|_f_<sub>_Hoog_ = 1/2|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/2 log<sub>2</sub>(1/2) = 1/2 × -1 = -1/2|
-|Porsche 911 1982|Hoog|_f_<sub>_Hoog_ = 1/2|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/2 log<sub>2</sub>(1/2) = 1/2 × -1 = -1/2|
-|Renault Laguna 1995|Midden|_f_<sub>_Midden_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = 1/4 log<sub>2</sub>(1/4) = 1/4 × -2 = -1/2|
-|Saab Viggen 1975|Laag|_f_<sub>_Laag_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>)= 1/4 log<sub>2</sub>(1/4) = 1/4 × -2 = -1/2|
+**Als je de frequenties hebt kun je met equation 4.1 de informatie van
+trainingsset _T_ berekenen. Je hebt nu de _I<sub>T</sub>_ uit equation 4.4.**
+
+> I<sub>T</sub> = ∑ Informatiewaarde
+
+|Categorie|_f_<sub>_categorie_</sub>|Informatiewaarde|
+|----|----|----|
+|Hoog|_f_<sub>_Hoog_ = ½|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = ½ log<sub>2</sub>(½) = ½ × -1 = -½|
+|Midden|_f_<sub>_Midden_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>) = ¼ log<sub>2</sub>(¼) = ¼ × -2 = -½|
+|Laag|_f_<sub>_Laag_ = 1/4|I<sub>T</sub> = _f_<sub>_i_</sub>  log<sub>2</sub>(_f_<sub>_i_</sub>)= ¼ log<sub>2</sub>(¼) = ¼ × -2 = -½|
 <!-- ![equation](http://www.sciweavers.org/tex2img.php?eq=2%2F4%3D1%2F2	&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=) -->
 
+> I<sub>T</sub> = -½ - ½ - ½ = -1½
+
+**Selecteer nu een feature, bijvoorbeeld airco. Wat is de _M_ uit equation 4.4
+(“the number of possible values of feature s”). Splits de trainingsset _T_ in
+meerdere verzamelingen, afhankelijk van de waarde van de feature. Hoe zien
+_T<sub>airco,ja</sub>_ en _T<sub>airco,nee</sub>_ eruit?**
+
+_M = 2_ ("Ja" of "Nee")
+
+> T<sub>airco,ja</sub> = {Mercedes SLK 2001, Porsche 911 1982}  
+> T<sub>airco,nee</sub> = {Renault Laguna 1995, Saab Viggen 1975}
+
+> I<sub>T<sub>airco,ja</sub></sub> =
 
 ## Opdracht 11
 
