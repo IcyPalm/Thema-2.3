@@ -267,7 +267,115 @@ _M = 2_ ("Ja" of "Nee")
 > T<sub>airco,ja</sub> = {Mercedes SLK 2001, Porsche 911 1982}  
 > T<sub>airco,nee</sub> = {Renault Laguna 1995, Saab Viggen 1975}
 
-> I<sub>T<sub>airco,ja</sub></sub> =
+**Bereken nu de informatie van de kleinere set _T<sub>airco,ja</sub>_ op dezelfde
+manier als je dat net had gedaan voor de hele trainingsset _T_.**
+
+_T<sub>airco,ja</sub>_:
+
+| Categorie | Frequentie | Informatiewaarde |
+|-----------|------------|------------------|
+| Hoog      | 1          | _1 × log<sub>2</sub>(1) = 0_ |
+| Midden    | 0          | _0 × log<sub>2</sub>(0) = 0_ |
+| Laag      | 0          | _0 × log<sub>2</sub>(0) = 0_ |
+
+> I<sub>T<sub>airco,ja</sub></sub> = ∑ Informatiewaarde = 0
+
+**Idem _T<sub>airco,nee</sub>_.**
+
+| Categorie | Frequentie | Informatiewaarde |
+|-----------|------------|------------------|
+| Hoog      | 0          | _0 × log<sub>2</sub>(0) = 0_  |
+| Midden    | ½          | _½ × log<sub>2</sub>(½) = -½_ |
+| Laag      | ½          | _½ × log<sub>2</sub>(½) = -½_ |
+
+> I<sub>T<sub>airco,nee</sub></sub> = -1
+
+**Wat is het gewogen gemiddelde van _T<sub>airco,ja</sub> en
+_T<sub>airco,nee</sub>_?**
+
+> (|T<sub>airco,ja</sub>| ÷ |T|) × I<sub>T<sub>airco,ja</sub></sub> +
+> (|T<sub>airco,nee</sub>| ÷ |T|) × I<sub>T<sub>airco,nee</sub></sub>  
+> = (2 / 4) × 0 + (2 / 4) × -1 = ½ × -1 = -½
+
+**Bereken equation 4.4.**
+
+> I<sub>airco,T</sub> = I<sub>T</sub> - -½ = -1½ + ½ = -1
+
+**Voer de berekening nu ook uit voor de feature ABS. Kijk welke feature de
+meeste informatie bevat.**
+
+> _M = 2_ ("Ja" of "Nee")
+
+> T<sub>abs,ja</sub> = {Mercedes SLK 2001, Renault Laguna 1995}  
+> T<sub>abs,nee</sub> = {Porsche 911 1982, Saab Viggen 1975}
+
+> _T<sub>abs,ja</sub>_:
+
+| Categorie | Frequentie | Informatiewaarde |
+|-----------|------------|------------------|
+| Hoog      | ½          | ½ × log<sub>2</sub>(½) = -½ |
+| Midden    | ½          | ½ × log<sub>2</sub>(½) = -½ |
+| Laag      | 0          | 0 × log<sub>2</sub>(0) = 0  |
+
+> _T<sub>abs,nee</sub>_:
+
+| Categorie | Frequentie | Informatiewaarde |
+|-----------|------------|------------------|
+| Hoog      | ½          | ½ × log<sub>2</sub>(½) = -½ |
+| Midden    | 0          | 0 × log<sub>2</sub>(0) = 0  |
+| Laag      | ½          | ½ × log<sub>2</sub>(½) = -½ |
+
+> I<sub>T<sub>abs,ja</sub></sub> = -1  
+> I<sub>T<sub>abs,nee</sub></sub> = -1
+
+> (|T<sub>abs,ja</sub>| ÷ |T|) × I<sub>T<sub>abs,ja</sub></sub> +
+> (|T<sub>abs,nee</sub>| ÷ |T|) × I<sub>T<sub>abs,nee</sub></sub>  
+> = (2 / 4) × -1 + (2 / 4) × -1 = ½ × -1 + ½ × -1 = -1
+
+> I<sub>abs,T</sub> = I<sub>T</sub> - -1 = -1½ + 1 = -½
+
+Recap:
+
+> I<sub>airco,T</sub> = -1  
+> I<sub>abs,T</sub> = -½
+
+**Vervolg daarna met stap 4 van algoritme 4.2.**
+
+           Airco
+          /     \
+     [Ja]/       \[Nee]
+        /         \
+      Hoog        ABS
+                 /   \
+            [Ja]/     \[Nee]
+               /       \
+            Midden    Laag
+
+Hier een wat ondoorzichtige beschrijving van hoe het algoritme doorlopen wordt:
+
+ * T={Mercedes SLK 2001, Porsche 911 1982, Renault Laguna 1995, Saab Viggen 1975}
+ * Categorien: {Hoog, Hoog, Midden, Laag}
+ * Node: Airco
+ * Mogelijke waarden: {Ja, Nee}
+
+ * Recursie met Airco=Ja
+   * T={Mercedes SLK 2001, Porsche 911 1982}
+   * Categorieën: {Hoog, Hoog}
+   * Node: Hoog.
+
+ * Recursie met Airco=Nee:
+   * T={Renault Laguna 1995, Saab Viggen 1975}
+   * Categorieën: {Midden, Laag}
+   * Midden: ABS
+   * Mogelijke waarden: {Ja, Nee}
+   * Recursie met Airco=Nee ∧ ABS=Ja:
+      * T={Renault Laguna 1995}
+     * Categorieën: {Midden}
+     * Node: Midden
+   * Recursie met Airco=Nee ∧ ABS=Nee:
+     * T={Saab Viggen 1975}
+     * Categorieën: {Laag}
+     * Node: Laag
 
 ## Opdracht 11
 
