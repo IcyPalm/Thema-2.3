@@ -1,5 +1,9 @@
 build:
-	javac -d bin -sourcepath src src/ui/GUI.java
+	javac \
+		-Xlint:deprecation \
+		-d bin \
+		-sourcepath src \
+		src/ui/GUI.java
 
 build-test:
 	javac \
