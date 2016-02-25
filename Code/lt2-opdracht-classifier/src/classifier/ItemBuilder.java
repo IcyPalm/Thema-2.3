@@ -7,15 +7,17 @@ import java.awt.event.ActionEvent;
 
 public class ItemBuilder {
   private Item item;
+  private Classifier classifier;
   private Feature[] features;
   private int currentFeature = 0;
 
-  public ItemBuilder(String name, Feature[] features) {
-    this(new Item(name, features), features);
+  public ItemBuilder(String name, Feature[] features, Classifier classifier) {
+    this(new Item(name, features), features, classifier);
   }
-  public ItemBuilder(Item item, Feature[] features) {
+  public ItemBuilder(Item item, Feature[] features, Classifier classifier) {
     this.item = item;
     this.features = features;
+    this.classifier = classifier;
   }
 
   public Item getItem() {
@@ -31,6 +33,10 @@ public class ItemBuilder {
       return null;
     }
     return this.features[this.currentFeature];
+  }
+
+  public String getCategory() {
+    return this.classifier.assignCategory(this.getItem());
   }
 
   public void nextFeature() {
