@@ -96,9 +96,7 @@ public class FileReader {
         }finally {
 			scanner.close();
 		}
-        for (Item item : trainingSet.keySet()) {
-			System.out.println(trainingSet.get(item));
-		}
+        
         
         tree = new DecisionTree(trainingSet, featureSet);
 		return tree;
