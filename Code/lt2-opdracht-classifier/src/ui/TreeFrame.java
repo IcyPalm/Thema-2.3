@@ -17,8 +17,9 @@ public class TreeFrame {
 	public static void main(String s[]) {
 
 		JFrame frame = new JFrame("JFrame Example");
-		FileReader fileReader = new FileReader("trainingSet.txt");
-        tree = fileReader.generateTree();
+		FileReader fileReader = new FileReader("TrainingSet.txt");
+		fileReader.generateTree();
+        tree = fileReader.getTree();
 
         treeView = new TreeView(tree);
 

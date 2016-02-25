@@ -3,6 +3,7 @@ package classifier;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,44 +12,42 @@ public class FileReader {
 
 	private String filename;
 	private DecisionTree tree;
+	private Collection<String> features;
 	private FeatureType types;
-	
+
 	public FileReader(String filename){
 		this.filename = filename;
 		types = new FeatureType("YesNo",new String[]{"nee","ja"});
 	}
-	
-	
-	
-	
-	public DecisionTree generateTree(){
+
+	public void generateTree(){
 		Map<Item, String> trainingSet = new HashMap<Item, String>();
 		Map<String, FeatureType> featureSet = new HashMap<String, FeatureType>();
-		
+
         File file = new File(filename);
         Scanner scanner;
-        
+
         ArrayList<String> featureList;
-        
+
         featureList = readFeatures();
-        
+
         try {
             scanner = new Scanner(file);
             scanner.useDelimiter(";");
         }
         catch (FileNotFoundException e) {
             System.out.println(e);
-            return null;
+            return;
         }
-        
+
         try{
         	int featuresAmount = 0;
         	int itemsAmount = 0;
-        	
+
         	while(scanner.hasNextLine()){
-        		String current = scanner.nextLine();        		
+        		String current = scanner.nextLine();
         		String[] parts = current.split(";");
-        		
+
         		if(parts[0].equals("Features")){
         			featuresAmount = Integer.parseInt(parts[1]);
         			if(featuresAmount<=0){
@@ -62,29 +61,29 @@ public class FileReader {
 						featureSet.put(featureList.get(i), types);
 					}
         		}
-        		
+
         		else if(parts[0].equals("Items")){
         			itemsAmount = Integer.parseInt(parts[1]);
         			if(itemsAmount<=0){
         				throw new Exception("There should be more than 0 items");
         			}
         		}
-        		
-        		
+
+
         		else{
         			if(parts.length != featuresAmount+2){
         				throw new Exception("Ivalid amount of features in line:\""+current+"\"");
         			}
-        			
+
         			Feature[] featureArray = new Feature[featuresAmount];
-        			
+
         			for (int i = 1; i < parts.length-1; i++) {
 						String name = featureList.get(i-1);
 						String value = parts[i];
 						if(value.equals("0"))value = "nee";
 						if(value.equals("1"))value = "ja";
-						
-						
+
+
 						featureArray[i-1] = new Feature(name, value, types);
 					}
         			Item item = new Item(parts[0], featureArray);
@@ -96,14 +95,18 @@ public class FileReader {
         }finally {
 			scanner.close();
 		}
-        
-        
-        tree = new DecisionTree(trainingSet, featureSet);
-		return tree;
+
+    this.tree = new DecisionTree(trainingSet, featureSet);
+		this.features = featureList;
 	}
-	
+
 	public DecisionTree getTree() {
-		return tree;
+		return this.tree;
+	}
+	public Feature[] createFeatures() {
+		return this.features.stream()
+			.map(name -> new Feature(name, this.types.getDefaultValue(), this.types))
+			.toArray(Feature[]::new);
 	}
 
 	private ArrayList<String> readFeatures() {
@@ -124,8 +127,8 @@ public class FileReader {
 		}
 		return features;
 	}
-	
-	
-	
+
+
+
 	//TODO: read amount items and validate if correct, maybe loop different over file
 }
