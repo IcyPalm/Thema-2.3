@@ -6,6 +6,7 @@ import classifier.Feature;
 import classifier.FeatureType;
 import classifier.FileReader;
 
+import java.awt.Container;
 import javax.swing.JFrame;
 
 public class GUI extends JFrame {
@@ -34,24 +35,20 @@ public class GUI extends JFrame {
     this.builder = new ItemBuilder("Car", this.features, this.classifier);
 
 		this.builder.addActionListener(e -> this.update());
-		this.paint();
+		this.update();
   }
 
 	private void update() {
-		this.paint();
-		this.repaint();
-	}
-
-	private void paint() {
 		int newState = this.builder.isFinished() ? RESULTS : SELECTING;
 		if (newState != this.state) {
-			System.out.println("updating");
+			Container content = this.getContentPane();
 			if (newState == RESULTS) {
-				System.out.println("Results: " + this.builder.getCategory());
-				this.add(new ResultsView(this.features, this.builder.getCategory()));
+				content.removeAll();
+				content.add(new ResultsView(this.features, this.builder.getCategory()));
 			} else {
-		    this.add(new SelectFeaturesView(this.builder));
+		    content.add(new SelectFeaturesView(this.builder));
 			}
+			content.repaint();
 			this.state = newState;
 		}
 	}
