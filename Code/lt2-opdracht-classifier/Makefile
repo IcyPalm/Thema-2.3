@@ -4,6 +4,12 @@ build:
 		-d bin \
 		-sourcepath src \
 		src/ui/GUI.java
+build-tree:
+	javac \
+		-Xlint:deprecation \
+		-d bin \
+		-sourcepath src \
+		src/ui/TreeFrame.java
 
 build-test:
 	javac \
@@ -14,6 +20,9 @@ build-test:
 
 run: build
 	java -classpath bin ui.GUI
+
+tree: build-tree
+	java -classpath bin ui.TreeFrame
 
 test: build-test
 	java \
