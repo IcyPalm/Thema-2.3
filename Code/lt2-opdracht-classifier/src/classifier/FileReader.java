@@ -2,20 +2,13 @@ package classifier;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader {
-	
-	
-	public static void main(String[] args) {
-		new FileReader("TrainingSet.txt").generateTrainingsSet();
-	}
-	
-	
+
 	private String filename;
 	private DecisionTree tree;
 	private FeatureType types;
@@ -25,7 +18,10 @@ public class FileReader {
 		types = new FeatureType("YesNo",new String[]{"nee","ja"});
 	}
 	
-	public HashMap<Item, String> generateTrainingsSet(){
+	
+	
+	
+	public DecisionTree generateTree(){
 		Map<Item, String> trainingSet = new HashMap<Item, String>();
 		Map<String, FeatureType> featureSet = new HashMap<String, FeatureType>();
 		
@@ -104,9 +100,12 @@ public class FileReader {
 			System.out.println(trainingSet.get(item));
 		}
         
-        DecisionTree test = new DecisionTree(trainingSet, featureSet);
-        System.out.println(test.toString());
-		return null;
+        tree = new DecisionTree(trainingSet, featureSet);
+		return tree;
+	}
+	
+	public DecisionTree getTree() {
+		return tree;
 	}
 
 	private ArrayList<String> readFeatures() {
