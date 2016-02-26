@@ -1018,11 +1018,11 @@ body .markdown-body
 <h2 id="opdracht-1"><a name="user-content-opdracht-1" href="#opdracht-1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 1</h2>
 <h3 id="inorder"><a name="user-content-inorder" href="#inorder" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Inorder</h3>
 <pre><code>current = root; // Begin bij de root
-while ( current is not NULL or stack is nonempty ) 
+while ( current is not NULL or stack is nonempty )
     if ( current is not NULL ){
         stack.push(current);
         current = current.leftchild
-    } 
+    }
     else {
         current = stack.pop
         print current.content
@@ -1036,7 +1036,7 @@ while ( current is not NULL or stack is nonempty ){
         print current.content
         push current
         current = current.leftchild
-    } 
+    }
     else {
         current = stack.pop
         current = current.rightchild
@@ -1049,13 +1049,13 @@ while ( current is not NULL or stack is nonempty ){
     if ( current is not NULL ){
         stack.push(current)
         current = current.leftchild
-    } 
+    }
     else {
         current = stack.pop
         if ( current.secondPop ){
             print current.content
             current = stack.pop
-        } 
+        }
         else{
             current.setSecondPop
             push current
@@ -1065,29 +1065,241 @@ while ( current is not NULL or stack is nonempty ){
 }
 </code></pre>
 <h2 id="opdracht-2"><a name="user-content-opdracht-2" href="#opdracht-2" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 2</h2>
-<p>(…)</p>
+<p>Zie de Code in lt2-opdracht2</p>
 <h2 id="opdracht-3"><a name="user-content-opdracht-3" href="#opdracht-3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 3</h2>
-<p>(…)</p>
+<p>Zie <a href="///D://Thema%202.3%20git/Code/lt2-getalrij/src/getalrij/GetalRij.java#L31-L39">GetalRij.java</a>.</p>
+<pre><code class="java">boolean exists = false;
+for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    exists = true;
+  }
+}
+return exists;
+</code></pre>
+
 <h2 id="opdracht-4"><a name="user-content-opdracht-4" href="#opdracht-4" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 4</h2>
-<p>(…)</p>
+<p>Zie <a href="///D://Thema%202.3%20git/Code/lt2-getalrij/src/getalrij/GetalRij.java#L41-L48">GetalRij.java</a>.</p>
+<pre><code class="java">for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    return true;
+  }
+}
+return false;
+</code></pre>
+
 <h2 id="opdracht-5"><a name="user-content-opdracht-5" href="#opdracht-5" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 5</h2>
-<p>(…)</p>
+<p>Algoritme B zou een stuk sneller moeten zijn. Algoritme A blijft namelijk<br />
+doodleuk getalletjes checken, ook als allang bekend is dat het gezochte getal<br />
+aanwezig is.</p>
+<p>Gemiddeld zal Algoritme B 2× zo snel zijn als Algoritme A, wanneer het gezochte<br />
+getal <em>wel</em> aanwezig is. Als het gezochte getal <em>niet</em> in de lijst aanwezig is,<br />
+zal er geen verschil in performance zijn.</p>
+<p>We vergelijken de totale tijd om 200 willekeurige getallen in een lijst van<br />
+100,000 items op te zoeken:</p>
+<pre><code>Linear        - zitErinA: 13.04ms
+Linear        - zitErinB: 11.65ms
+</code></pre>
+
+<p><code>zitErinB</code> is dus vlugger dan <code>zitErinA</code>, maar lang niet 2× zo vlug! Dit komt<br />
+doordat niet alle getallen die we proberen ook in de lijst zitten. Er is dus een<br />
+zekere hoeveelheid iteraties waarbij <code>zitErinA</code> en <code>zitErinB</code> evenveel werk<br />
+doen.</p>
 <h2 id="opdracht-6"><a name="user-content-opdracht-6" href="#opdracht-6" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 6</h2>
-<p>(…)</p>
+<p>In een vooraf gesorteerde lijst kunnen we nog één situatie versnellen: wanneer<br />
+het gezochte getal <em>niet</em> in de lijst zit. Immers, als we door de lijst lopen<br />
+en we komen een getal tegen dat <em>groter</em> is dan het gezochte getal, dan zijn<br />
+alle volgende getallen <em>ook</em> groter, dus allemaal <em>niet</em> het gezochte getal. We<br />
+kunnen dan onmiddellijk stoppen met zoeken.</p>
+<p>Zie <a href="///D://Thema%202.3%20git/Code/lt2-getalrij/src/getalrij/GetalRij.java#L50-L59">GetalRij.java</a>.</p>
+<pre><code class="java">for (int value : this.getallen) {
+  if (value == zoekWaarde) {
+    return true;
+  } else if (value &gt; zoekWaarde) {
+     return false;
+  }
+}
+return false;
+</code></pre>
+
+<p>In onze benchmarks komt dit echter niet uit: deze methode scoort slechter dan<br />
+Algoritme B, en soms zelfs slechter dan Algoritme A. Soms, want de test is niet<br />
+perfect, en de snelheid van de algoritmen is ook afhankelijk van welke getallen<br />
+geprobeerd worden. Als er veel kleine getallen geprobeerd worden die <em>niet</em> in<br />
+de lijst zitten, zal Algoritme C voordelig uitvallen. Als er veel grote getallen<br />
+voorkomen of getallen die <em>wel</em> in de lijst zitten, raakt Algoritme C in de<br />
+problemen.</p>
+<p>Waarschijnlijk is de extra if-conditie <code>value &gt; zoekWaarde</code> de schuldige. Die<br />
+verdubbelt het werk in de loop voor alle getallen beneden de <code>zoekWaarde</code>.</p>
+<pre><code>Linear        - zitErinA: 13.263ms
+Linear        - zitErinB: 11.335ms
+Linear Sorted - zitErinC: 12.524ms
+</code></pre>
+
+<pre><code>Linear        - zitErinA: 13.740ms
+Linear        - zitErinB: 11.433ms
+Linear Sorted - zitErinC: 13.836ms
+</code></pre>
+
 <h2 id="opdracht-7"><a name="user-content-opdracht-7" href="#opdracht-7" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 7</h2>
-<p>(…)</p>
+<p>De zoektijd van een binair zoekalgoritme zal een stuk minder zijn. Gemiddeld<br />
+hebben de lineaire varianten namelijk <em>n / 2</em> stappen nodig, terwijl een binair<br />
+algoritme slechts <em>log<sub>2</sub>(n)</em> stappen nodig heeft.</p>
+<p>Bij 100,000 items verwachten we van een lineair algoritme gemiddeld 50,000<br />
+stappen. Bij een binair algoritme verwachten we 17 stappen, ongeveer 3000×<br />
+minder. Elke stap kost bij een binair algoritme wel iets meer tijd dan bij een<br />
+lineair algoritme, dus de tijdswinst zal minder dan 3000× zijn.</p>
+<p>Zie <a href="///D://Thema%202.3%20git/Code/lt2-getalrij/src/getalrij/GetalRij.java#L61-L76">GetalRij.java</a>.</p>
+<pre><code>Linear        - zitErinA: 13.317ms
+Linear        - zitErinB: 11.344ms
+Linear Sorted - zitErinC: 13.537ms
+Binary Sorted - zitErinD: 0.391ms
+</code></pre>
+
+<p><code>zitErinD</code> is hier ongeveer <em>13.5 / 0.4 =</em> 34× zo snel als de lineaire<br />
+varianten. Dat is veel, maar nog lang geen 3000×! We vermoeden dat dit verschil<br />
+veroorzaakt wordt doordat lineaire zoekfuncties van meer VM en hardware-<br />
+optimalisaties gebruik kunnen maken. Zo interessant is dat ook niet, want dit<br />
+algoritme is al best vlug! :)</p>
+<p>Als de lijst verdubbeld wordt, zal een lineaire zoekfunctie gemiddeld 2× zoveel<br />
+stappen nodig hebben. Een binaire zoekfunctie heeft dan slechts <strong>één</strong> extra<br />
+stap nodig:</p>
+<pre><code>Linear        - zitErinA: 23.414ms
+Linear        - zitErinB: 22.065ms
+Linear Sorted - zitErinC: 21.863ms
+Binary Sorted - zitErinD: 0.269ms
+</code></pre>
+
 <h2 id="opdracht-8"><a name="user-content-opdracht-8" href="#opdracht-8" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 8</h2>
-<p>(…)</p>
+<p>Het lineaire algoritme is orde <em>O(n)</em>, want als er een extra item aan een lijst<br />
+toegevoegd wordt heeft het algoritme ook een extra stap nodig om de lijst te<br />
+doorlopen.</p>
 <h2 id="opdracht-9"><a name="user-content-opdracht-9" href="#opdracht-9" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 9</h2>
-<p>(…)</p>
+<p>Het binaire algoritme is orde <em>O(log n)</em>. Het algoritme deelt de lijst telkens<br />
+in twee delen op en schrijft per stap de <em>helft</em> van de lijst af. Een<br />
+verdubbeling van de lengte van de lijst is dus slechts <em>één</em> extra stap voor een<br />
+binair algoritme. De lengte van de lijst die onderzocht kan worden in <em>m</em><br />
+stappen is <em>2<sup>m</sup></em>. Dus, het aantal stappen dat nodig is om een lijst<br />
+met <em>n</em> elementen te doorlopen is <em>log<sub>2</sub>(n)</em>.</p>
 <h2 id="opdracht-10"><a name="user-content-opdracht-10" href="#opdracht-10" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 10</h2>
-<p>(…)</p>
+<p><strong>Wat is de verzameling trainingsitems T?</strong></p>
+<p>T bevat alle namen van items: {Mercedes SLK 2001, Porsche 911 1982, Renault Laguna 1995, Saab Viggen 1975}</p>
+<p><strong>Wat is de verzameling features F?</strong></p>
+<p>F bevat: AC en ABS</p>
+<p><strong>Hoe ziet het alfabet er in dit geval uit (“the set of categories”)?</strong></p>
+<p>Zo: {Hoog, Midden, Laag}</p>
+<p><strong>Hoe ziet de sequence of symbols eruit voor T? (“taking each item and looking at its category.”)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Categorie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mercedes SLK 2001</td>
+<td>Hoog</td>
+</tr>
+<tr>
+<td>Porsche 911 1982</td>
+<td>Hoog</td>
+</tr>
+<tr>
+<td>Renault Laguna 1995</td>
+<td>Midden</td>
+</tr>
+<tr>
+<td>Saab Viggen 1975</td>
+<td>Laag</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Wat is het aantal elementen in T?</strong></p>
+<blockquote>
+<p>|T| = 4</p>
+</blockquote>
+<p><strong>Wat is het aantal symbolen “Hoog” in de sequence?</strong></p>
+<blockquote>
+<p>|{item ∈ T | category(item) = Hoog}| = 2</p>
+</blockquote>
+<p><strong>Met de vorige twee kun je de frequentie uitrekenen van categorieën.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th>Frequentie f<sub>i</sub></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td>f<sub>i</sub> = 2/4 = ½</td>
+</tr>
+<tr>
+<td>Midden</td>
+<td>f<sub>i</sub> = ¼</td>
+</tr>
+<tr>
+<td>Laag</td>
+<td>f<sub>i</sub> = ¼</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Als je de frequenties hebt kun je met equation 4.1 de informatie van<br />
+trainingsset <em>T</em> berekenen. Je hebt nu de <em>I<sub>T</sub></em> uit equation 4.4.</strong></p>
+<blockquote>
+<p>I<sub>T</sub> = ∑ Informatiewaarde</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th><em>f</em><sub><em>categorie</em></sub></th>
+<th>Informatiewaarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td><em>f</em><sub><em>Hoog</em> = ½</td>
+<td>I<sub>T</sub> = <em>f</em><sub><em>i</em></sub>  log<sub>2</sub>(<em>f</em><sub><em>i</em></sub>) = ½ log<sub>2</sub>(½) = ½ × -1 = -½</td>
+</tr>
+<tr>
+<td>Midden</td>
+<td><em>f</em><sub><em>Midden</em> = 1/4</td>
+<td>I<sub>T</sub> = <em>f</em><sub><em>i</em></sub>  log<sub>2</sub>(<em>f</em><sub><em>i</em></sub>) = ¼ log<sub>2</sub>(¼) = ¼ × -2 = -½</td>
+</tr>
+<tr>
+<td>Laag</td>
+<td><em>f</em><sub><em>Laag</em> = 1/4</td>
+<td>I<sub>T</sub> = <em>f</em><sub><em>i</em></sub>  log<sub>2</sub>(<em>f</em><sub><em>i</em></sub>)= ¼ log<sub>2</sub>(¼) = ¼ × -2 = -½</td>
+</tr>
+<tr>
+<td><!-- <img alt="equation" src="http://www.sciweavers.org/tex2img.php?eq=2%2F4%3D1%2F2" title="&amp;bc=White&amp;fc=Black&amp;im=jpg&amp;fs=12&amp;ff=arev&amp;edit=" /> --></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>I<sub>T</sub> = -½ - ½ - ½ = -1½</p>
+</blockquote>
+<p><strong>Selecteer nu een feature, bijvoorbeeld airco. Wat is de <em>M</em> uit equation 4.4<br />
+(“the number of possible values of feature s”). Splits de trainingsset <em>T</em> in<br />
+meerdere verzamelingen, afhankelijk van de waarde van de feature. Hoe zien<br />
+<em>T<sub>airco,ja</sub></em> en <em>T<sub>airco,nee</sub></em> eruit?</strong></p>
+<p><em>M = 2</em> (&ldquo;Ja&rdquo; of &ldquo;Nee&rdquo;)</p>
+<blockquote>
+<p>T<sub>airco,ja</sub> = {Mercedes SLK 2001, Porsche 911 1982}<br />
+T<sub>airco,nee</sub> = {Renault Laguna 1995, Saab Viggen 1975}</p>
+<p>I<sub>T<sub>airco,ja</sub></sub> =</p>
+</blockquote>
 <h2 id="opdracht-11"><a name="user-content-opdracht-11" href="#opdracht-11" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 11</h2>
 <p>(…)</p>
 <h2 id="opdracht-12"><a name="user-content-opdracht-12" href="#opdracht-12" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 12</h2>
 <p>(…)</p>
 <h2 id="opdracht-13"><a name="user-content-opdracht-13" href="#opdracht-13" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 13</h2>
-<p>(…)</p>
+<p><img alt="GetalRij.java" src="///D://Thema%202.3%20git/Code/lt2-opdracht-classifier/src/Klassendiagram.png" /></p>
 <h2 id="opdracht-14"><a name="user-content-opdracht-14" href="#opdracht-14" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 14</h2>
 <p>(…)</p>
 <h2 id="opdracht-15"><a name="user-content-opdracht-15" href="#opdracht-15" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 15</h2>
