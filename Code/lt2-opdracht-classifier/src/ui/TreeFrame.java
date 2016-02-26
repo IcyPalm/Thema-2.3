@@ -21,6 +21,8 @@ public class TreeFrame {
 		fileReader.generateTree();
         tree = fileReader.getTree();
 
+        System.out.println(tree);
+        
         treeView = new TreeView(tree);
 
         JScrollPane mainView = new JScrollPane(treeView);

@@ -1292,10 +1292,216 @@ meerdere verzamelingen, afhankelijk van de waarde van de feature. Hoe zien<br />
 <blockquote>
 <p>T<sub>airco,ja</sub> = {Mercedes SLK 2001, Porsche 911 1982}<br />
 T<sub>airco,nee</sub> = {Renault Laguna 1995, Saab Viggen 1975}</p>
-<p>I<sub>T<sub>airco,ja</sub></sub> =</p>
 </blockquote>
+<p><strong>Bereken nu de informatie van de kleinere set <em>T<sub>airco,ja</sub></em> op dezelfde<br />
+manier als je dat net had gedaan voor de hele trainingsset <em>T</em>.</strong></p>
+<p><em>T<sub>airco,ja</sub></em>:</p>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th>Frequentie</th>
+<th>Informatiewaarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td>1</td>
+<td><em>1 × log<sub>2</sub>(1) = 0</em></td>
+</tr>
+<tr>
+<td>Midden</td>
+<td>0</td>
+<td><em>0 × log<sub>2</sub>(0) = 0</em></td>
+</tr>
+<tr>
+<td>Laag</td>
+<td>0</td>
+<td><em>0 × log<sub>2</sub>(0) = 0</em></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>I<sub>T<sub>airco,ja</sub></sub> = ∑ Informatiewaarde = 0</p>
+</blockquote>
+<p><strong>Idem <em>T<sub>airco,nee</sub></em>.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th>Frequentie</th>
+<th>Informatiewaarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td>0</td>
+<td><em>0 × log<sub>2</sub>(0) = 0</em></td>
+</tr>
+<tr>
+<td>Midden</td>
+<td>½</td>
+<td><em>½ × log<sub>2</sub>(½) = -½</em></td>
+</tr>
+<tr>
+<td>Laag</td>
+<td>½</td>
+<td><em>½ × log<sub>2</sub>(½) = -½</em></td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>I<sub>T<sub>airco,nee</sub></sub> = -1</p>
+</blockquote>
+<p><strong>Wat is het gewogen gemiddelde van <em>T<sub>airco,ja</sub> en<br />
+_T<sub>airco,nee</sub></em>?</strong></p>
+<blockquote>
+<p>(|T<sub>airco,ja</sub>| ÷ |T|) × I<sub>T<sub>airco,ja</sub></sub> +<br />
+(|T<sub>airco,nee</sub>| ÷ |T|) × I<sub>T<sub>airco,nee</sub></sub><br />
+= (2 / 4) × 0 + (2 / 4) × -1 = ½ × -1 = -½</p>
+</blockquote>
+<p><strong>Bereken equation 4.4.</strong></p>
+<blockquote>
+<p>I<sub>airco,T</sub> = I<sub>T</sub> - -½ = -1½ + ½ = -1</p>
+</blockquote>
+<p><strong>Voer de berekening nu ook uit voor de feature ABS. Kijk welke feature de<br />
+meeste informatie bevat.</strong></p>
+<blockquote>
+<p><em>M = 2</em> (&ldquo;Ja&rdquo; of &ldquo;Nee&rdquo;)</p>
+<p>T<sub>abs,ja</sub> = {Mercedes SLK 2001, Renault Laguna 1995}<br />
+T<sub>abs,nee</sub> = {Porsche 911 1982, Saab Viggen 1975}</p>
+<p><em>T<sub>abs,ja</sub></em>:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th>Frequentie</th>
+<th>Informatiewaarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td>½</td>
+<td>½ × log<sub>2</sub>(½) = -½</td>
+</tr>
+<tr>
+<td>Midden</td>
+<td>½</td>
+<td>½ × log<sub>2</sub>(½) = -½</td>
+</tr>
+<tr>
+<td>Laag</td>
+<td>0</td>
+<td>0 × log<sub>2</sub>(0) = 0</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>T<sub>abs,nee</sub></em>:</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Categorie</th>
+<th>Frequentie</th>
+<th>Informatiewaarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hoog</td>
+<td>½</td>
+<td>½ × log<sub>2</sub>(½) = -½</td>
+</tr>
+<tr>
+<td>Midden</td>
+<td>0</td>
+<td>0 × log<sub>2</sub>(0) = 0</td>
+</tr>
+<tr>
+<td>Laag</td>
+<td>½</td>
+<td>½ × log<sub>2</sub>(½) = -½</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>I<sub>T<sub>abs,ja</sub></sub> = -1<br />
+I<sub>T<sub>abs,nee</sub></sub> = -1</p>
+<p>(|T<sub>abs,ja</sub>| ÷ |T|) × I<sub>T<sub>abs,ja</sub></sub> +<br />
+(|T<sub>abs,nee</sub>| ÷ |T|) × I<sub>T<sub>abs,nee</sub></sub><br />
+= (2 / 4) × -1 + (2 / 4) × -1 = ½ × -1 + ½ × -1 = -1</p>
+<p>I<sub>abs,T</sub> = I<sub>T</sub> - -1 = -1½ + 1 = -½</p>
+</blockquote>
+<p>Recap:</p>
+<blockquote>
+<p>I<sub>airco,T</sub> = -1<br />
+I<sub>abs,T</sub> = -½</p>
+</blockquote>
+<p><strong>Vervolg daarna met stap 4 van algoritme 4.2.</strong></p>
+<pre><code>       Airco
+      /     \
+ [Ja]/       \[Nee]
+    /         \
+  Hoog        ABS
+             /   \
+        [Ja]/     \[Nee]
+           /       \
+        Midden    Laag
+</code></pre>
+<p>Hier een wat ondoorzichtige beschrijving van hoe het algoritme doorlopen wordt:</p>
+<ul>
+<li>T={Mercedes SLK 2001, Porsche 911 1982, Renault Laguna 1995, Saab Viggen 1975}</li>
+<li>Categorien: {Hoog, Hoog, Midden, Laag}</li>
+<li>Node: Airco</li>
+<li>
+<p>Mogelijke waarden: {Ja, Nee}</p>
+</li>
+<li>
+<p>Recursie met Airco=Ja</p>
+</li>
+<li>T={Mercedes SLK 2001, Porsche 911 1982}</li>
+<li>Categorieën: {Hoog, Hoog}</li>
+<li>
+<p>Node: Hoog.</p>
+</li>
+<li>
+<p>Recursie met Airco=Nee:</p>
+</li>
+<li>T={Renault Laguna 1995, Saab Viggen 1975}</li>
+<li>Categorieën: {Midden, Laag}</li>
+<li>Midden: ABS</li>
+<li>Mogelijke waarden: {Ja, Nee}</li>
+<li>Recursie met Airco=Nee ∧ ABS=Ja:<ul>
+<li>T={Renault Laguna 1995}</li>
+<li>Categorieën: {Midden}</li>
+<li>Node: Midden</li>
+</ul>
+</li>
+<li>Recursie met Airco=Nee ∧ ABS=Nee:<ul>
+<li>T={Saab Viggen 1975}</li>
+<li>Categorieën: {Laag}</li>
+<li>Node: Laag</li>
+</ul>
+</li>
+</ul>
 <h2 id="opdracht-11"><a name="user-content-opdracht-11" href="#opdracht-11" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 11</h2>
-<p>(…)</p>
+<p>Naar onze mening is er weinig over te zeggen, aangezien het helemaal afhangt van<br />
+welke features bekend zijn, maar op basis van details in de vraagstelling leiden<br />
+we het volgende af:</p>
+<p>Er zijn <em>n</em> categorieën en ook <em>n</em> bladeren, oftewel elke categorie komt één<br />
+keer voor in de boom. Dan zijn er <em>log<sub>2</sub>(n)</em> features nodig, om elke<br />
+categorie uniek te identificeren. Als er meer features gebruikt worden, moeten<br />
+categorieën meerdere malen in de boom opgenomen worden, wat niet gaat passen.<br />
+(Immers, <em>|categorieën| = |bladeren|</em>, dus één categorie tweemaal is een andere<br />
+categorie negeren.) Als er minder features gebruikt worden, moeten er ook<br />
+categorieën genegeerd worden.</p>
+<p>Voor <em>n</em> categorieën zijn dus <em>log<sub>2</sub>(n)</em> features nodig.<br />
+Dat is <em>O(log n)</em>.</p>
 <h2 id="opdracht-12"><a name="user-content-opdracht-12" href="#opdracht-12" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 12</h2>
 <p>(…)</p>
 <h2 id="opdracht-13"><a name="user-content-opdracht-13" href="#opdracht-13" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Opdracht 13</h2>
