@@ -25,7 +25,7 @@ import java.util.Map;
 
 /**
  * Represents a decision tree. As this class implements the Classifier
- * interface, it can be used to classify items. 
+ * interface, it can be used to classify items.
  */
 public class DecisionTree implements Classifier {
 
@@ -33,6 +33,10 @@ public class DecisionTree implements Classifier {
 
 	public DecisionTree(Node tree){
 		root = tree;
+	}
+	
+	public Node getRoot(){
+		return root;
 	}
 
 	/**
@@ -86,7 +90,7 @@ public class DecisionTree implements Classifier {
 			//  create a leaf node labeled according to the class of the items
 			return new Node(findCategory(trainingsSet));
 		}
-		
+
 		//3)  select the "best" split feature s in F
 		//    (in the car example this best split feature might be "airco")
 		String splitFeature = selectSplit(trainingsSet,features);
@@ -95,12 +99,12 @@ public class DecisionTree implements Classifier {
 		//5)  for each possible value vi of s
 		//    (in the car example the possible values of the airco feature are yes/no.
 		FeatureType splitType = (FeatureType)features.get(splitFeature);
-		//    Split the trainingsset into subsets. 
+		//    Split the trainingsset into subsets.
 		//    (in the car example you'd get a subset of all cars with airco=yes and
 		//     a subset of cars with airco=no)
 		Map<String, HashMap<Item, String>> partitions = performSplit(trainingsSet,splitFeature,splitType.allowedValues());
 		for (Iterator<String> iter = partitions.keySet().iterator(); iter.hasNext();) {
-			String value = iter.next();		
+			String value = iter.next();
 			//    a)  be ni the result of a recursive execution of this algorithm where
 			//        the fist input is: Ti = { item in T | item.s == vi }
 			//        the second input is: A - { s }
@@ -118,11 +122,11 @@ public class DecisionTree implements Classifier {
 
 	/**
 	 * Determines the category of a set of items. Returns "?" when
-	 * the items have 
+	 * the items have
 	 */
 	private static String findCategory(Map<Item, String> trainingsSubset){
 		// No category if the set is empty
-		if(trainingsSubset.size()==0) 
+		if(trainingsSubset.size()==0)
 			return "?";
 
 		// Computes the frequency of each category

@@ -42,6 +42,10 @@ public class Item {
 	}
   }
 
+  public String getName() {
+    return this.name;
+  }
+
   /**
    * Gets this items value of a specific feature.
    * @param featureName A String which matches a featurename.
@@ -61,5 +65,5 @@ public class Item {
 	if(feature!=null){
 		feature.setValue(newValue);
 	}
-  }  
+  }
 }

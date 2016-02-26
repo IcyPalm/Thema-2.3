@@ -30,14 +30,18 @@ public class FeatureType {
 
     private TreeSet<String> allowed = new TreeSet<String>();
     private String name;
-        
+
 	public FeatureType(String name, String[] allowedValues) {
 		this.name = name;
 		for (int i = 0; i < allowedValues.length; i++) {
 			allowed.add(allowedValues[i]);
 		}
 	}
-	
+
+  public String getDefaultValue() {
+    return this.allowed.first();
+  }
+
 	public boolean isAllowed(String value) {
 		return allowed.contains(value);
 	}

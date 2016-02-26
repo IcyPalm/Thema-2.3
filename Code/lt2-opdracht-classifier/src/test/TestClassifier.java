@@ -18,17 +18,23 @@ public class TestClassifier extends TestCase {
 		root.addChild("yes",n1);
 		root.addChild("no",n2);
 		
+		Node n3 = new Node("WiFi");
+		n1.addChild("yes", n3);
+		
 		// leaves
 		Node l1 = new Node("high");
 		Node l2 = new Node("medium");
 		Node l3 = new Node("medium");
 		Node l4 = new Node("low");
+		Node l5 = new Node("medium");
 
-		n1.addChild("yes",l1);
-		n1.addChild("no",l2);
+		n3.addChild("yes",l1);
+		n3.addChild("no",l2);
 
 		n2.addChild("yes",l3);
 		n2.addChild("no",l4);
+		
+		n1.addChild("no",l5);
 		
 		return new DecisionTree(root);
     }
@@ -41,7 +47,8 @@ public class TestClassifier extends TestCase {
 
 		Feature[] features = new Feature[]
 		{ new Feature("AC","yes",yn),
-		  new Feature("ABS","yes",yn)
+		  new Feature("ABS","yes",yn),
+		  new Feature("WiFi","yes",yn)
 		};
 		
 		Item item = new Item("car",features);
@@ -54,6 +61,13 @@ public class TestClassifier extends TestCase {
 		category = dt.assignCategory(item);
 		assertEquals("medium",category);
 
+		item.setFeatureValue("AC", "yes");
+		item.setFeatureValue("ABS", "yes");
+		item.setFeatureValue("WiFi", "no");
+		category = dt.assignCategory(item);
+		assertEquals("medium",category);
+		
+		item.setFeatureValue("AC", "no");
 		item.setFeatureValue("ABS","no");
 		category = dt.assignCategory(item);
 		assertEquals("low",category);

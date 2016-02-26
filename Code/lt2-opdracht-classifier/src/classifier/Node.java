@@ -54,7 +54,9 @@ public class Node {
 	public void addChild(String arcLabel, Node child){
 		arcs.put(arcLabel,child);  
 	}
-
+	
+	public Map<String, Node> getArcs() { return arcs; }
+	
 	public boolean isLeaf() { return arcs.size()==0; }
 
 	public String getLabel() { return label; }
