@@ -24,7 +24,7 @@ public class TreeFrame {
         treeView = new TreeView(tree);
 
         JScrollPane mainView = new JScrollPane(treeView);
-        mainView.setPreferredSize(new Dimension(800, 600));
+        mainView.setPreferredSize(new Dimension(1920, 1080));
         frame.add(mainView);
 		frame.setSize(2000, 1100);
 		frame.setLocationRelativeTo(null);

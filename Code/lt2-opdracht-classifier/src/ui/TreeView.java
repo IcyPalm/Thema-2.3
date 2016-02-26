@@ -28,13 +28,12 @@ public class TreeView extends JPanel{
 	}
 	
 	public void repaint(){
-		
 	}
 
 	private void drawTree(){
 		Node root = tree.getRoot();
-		
-		drawNode(root,1000,50,0,1);
+		drawNode(root,(int)this.getPreferredSize().getWidth()/2,50,0,1);
+		System.out.println();
 	}
 	
 	private void drawNode(Node node, int x, int y, int xOffset, int depth) {
@@ -44,6 +43,10 @@ public class TreeView extends JPanel{
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBackground(Color.cyan);
         label.setOpaque(true);
+        
+        if(node.isLeaf()){
+        	label.setBackground(Color.green);
+        }
 
         if(!node.isLeaf()) {
             Map<String, Node> arcs = node.getArcs();
