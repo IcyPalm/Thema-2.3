@@ -1,5 +1,7 @@
 bool=ja;nee
+colors=rood;groen;blauw;paars;geel;zwart;oranje
 
+Kleur=colors
 Turbo=bool
 EnginPower=bool
 SportBumper=bool
