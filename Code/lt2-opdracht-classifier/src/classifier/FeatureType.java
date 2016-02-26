@@ -18,8 +18,8 @@
  */
 package classifier;
 
-import java.util.Collection;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
 /**
  * This class describes a set of possible values that are allowed
  * for a feature. Examples: Yes/No, High/Low, 1/2/4, ...
@@ -28,7 +28,7 @@ import java.util.TreeSet;
  */
 public class FeatureType {
 
-    private TreeSet<String> allowed = new TreeSet<String>();
+    private List<String> allowed = new ArrayList<String>();
     private String name;
 
 	public FeatureType(String name, String[] allowedValues) {
@@ -39,14 +39,14 @@ public class FeatureType {
 	}
 
   public String getDefaultValue() {
-    return this.allowed.first();
+    return this.allowed.get(0);
   }
 
 	public boolean isAllowed(String value) {
 		return allowed.contains(value);
 	}
 
-	public Collection<String> allowedValues() {
+	public List<String> allowedValues() {
 		return allowed;
 	}
 

@@ -9,15 +9,15 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class FileReader {
+	public static final int FEATURE_TYPES = 0;
+	public static final int FEATURES = 1;
 
 	private String filename;
 	private DecisionTree tree;
-	private Collection<String> features;
-	private FeatureType types;
+	private Collection<FeatureBlueprint> features;
 
 	public FileReader(String filename){
 		this.filename = filename;
-		types = new FeatureType("YesNo",new String[]{"nee","ja"});
 	}
 
 	public void generateTree(){
@@ -27,9 +27,7 @@ public class FileReader {
         File file = new File(filename);
         Scanner scanner;
 
-        ArrayList<String> featureList;
-
-        featureList = readFeatures();
+        ArrayList<FeatureBlueprint> featureList = readFeatures();
 
         try {
             scanner = new Scanner(file);
@@ -58,7 +56,7 @@ public class FileReader {
         			}
         			featureSet.clear();
         			for (int i = 0; i < featuresAmount; i++) {
-						featureSet.put(featureList.get(i), types);
+						featureSet.put(featureList.get(i).name, featureList.get(i).type);
 					}
         		}
 
@@ -78,13 +76,11 @@ public class FileReader {
         			Feature[] featureArray = new Feature[featuresAmount];
 
         			for (int i = 1; i < parts.length-1; i++) {
-						String name = featureList.get(i-1);
-						String value = parts[i];
-						if(value.equals("0"))value = "nee";
-						if(value.equals("1"))value = "ja";
+						FeatureBlueprint f = featureList.get(i-1);
+						int valueIndex = Integer.parseInt(parts[i], 10);
+						String value = f.type.allowedValues().get(valueIndex);
 
-
-						featureArray[i-1] = new Feature(name, value, types);
+						featureArray[i-1] = new Feature(f.name, value, f.type);
 					}
         			Item item = new Item(parts[0], featureArray);
         			trainingSet.put(item, parts[parts.length-1]);
@@ -105,18 +101,33 @@ public class FileReader {
 	}
 	public Feature[] createFeatures() {
 		return this.features.stream()
-			.map(name -> new Feature(name, this.types.getDefaultValue(), this.types))
+			.map(f -> new Feature(f.name, f.type.getDefaultValue(), f.type))
 			.toArray(Feature[]::new);
 	}
 
-	private ArrayList<String> readFeatures() {
+	private ArrayList<FeatureBlueprint> readFeatures() {
 		File file = new File("features.txt");
         Scanner scanner = null;
-        ArrayList<String> features = new ArrayList<>();
+	Map<String, FeatureType> featureTypes = new HashMap<>();
+        ArrayList<FeatureBlueprint> features = new ArrayList<>();
+		int state = FEATURE_TYPES;
 		try {
 			scanner = new Scanner(file);
 			while(scanner.hasNextLine()){
-				features.add(new String(scanner.nextLine()));
+				String line = new String(scanner.nextLine());
+				if (line.equals("")) {
+					state = FEATURES;
+					continue;
+				}
+				if (state == FEATURE_TYPES) {
+					String[] parts = line.split("=");
+					String[] values = parts[1].split(";");
+					featureTypes.put(parts[0], new FeatureType(parts[0], values));
+				} else if (state == FEATURES) {
+					String[] parts = line.split("=");
+					FeatureType type = featureTypes.get(parts[1]);
+					features.add(new FeatureBlueprint(parts[0], type));
+				}
 			}
         }
         catch (FileNotFoundException e) {
@@ -128,7 +139,14 @@ public class FileReader {
 		return features;
 	}
 
-
+	private class FeatureBlueprint {
+		public String name;
+		public FeatureType type;
+		public FeatureBlueprint(String name, FeatureType type) {
+			this.name = name;
+			this.type = type;
+		}
+	}
 
 	//TODO: read amount items and validate if correct, maybe loop different over file
 }
