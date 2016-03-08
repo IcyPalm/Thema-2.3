@@ -8,7 +8,7 @@ public class Problem {
 	private Scanner reader = new Scanner(System.in);
 
 	public void solve() {
-		// System.out.println(candidates);
+		//System.out.println(candidates);
 		// System.out.println(solution);
 		// reader.nextLine();
 		int index = 0;

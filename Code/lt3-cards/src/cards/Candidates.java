@@ -38,7 +38,7 @@ public class Candidates extends LinkedList<Candidate> {
 	}
 
 	public String toString() {
-		Iterator it = iterator();
+		Iterator<Candidate> it = iterator();
 		String rS = "";
 		while (it.hasNext()) {
 			rS += it.next() + " ";

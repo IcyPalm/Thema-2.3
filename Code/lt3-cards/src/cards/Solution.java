@@ -5,7 +5,12 @@ import java.util.Stack;
 */
 public class Solution extends Stack<Candidate>
 {
-    // The board is an 2D array.
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -8556591170740305342L;
+
+	// The board is an 2D array.
 	// 0123
 	// 0..-.
 	// 1---.
@@ -33,8 +38,36 @@ public class Solution extends Stack<Candidate>
 	 // @return Boolean indicating if cardChar is found.
 	 // can be used in the methods fits and isCorrect
 	private boolean bordersCard(int row, int column, char cardChar){
-	    //TODO
-		return true;
+	    
+		//row-1
+		if(row>0){
+			Candidate borderingCard = board[row-1][column];
+			if(borderingCard!=null&& borderingCard.getCardChar() == cardChar){
+				return true;
+			}
+		}
+		//row+1
+		if(row<board.length-1){
+			Candidate borderingCard = board[row+1][column];
+			if(borderingCard!=null&& borderingCard.getCardChar() == cardChar){
+				return true;
+			}
+		}
+		//col-1
+		if(column>0){
+			Candidate borderingCard = board[row][column-1];
+			if(borderingCard!=null&& borderingCard.getCardChar() == cardChar){
+				return true;
+			}
+		}
+		//col+1
+		if(column<board[0].length-1){
+			Candidate borderingCard = board[row][column+1];
+			if(borderingCard!=null&& borderingCard.getCardChar() == cardChar){
+				return true;
+			}
+		}
+		return false;
     }
 	
 	
@@ -47,7 +80,10 @@ public class Solution extends Stack<Candidate>
 	 *         free position.
 	 */
 	public boolean fits(Candidate candidate) {
-		// TODO
+		// check if 
+		if(bordersCard(row[this.size()], column[this.size()], candidate.getCardChar())){
+			return false;
+		}
 		return true;
 	}
 
@@ -87,15 +123,25 @@ public class Solution extends Stack<Candidate>
 
 	/**
 	 * Checks whether the rules below are fulfilled For the positions that can
-	 * be checked for solution sofar. Rules: Elke aas (ace) grenst (horizontaal
-	 * of verticaal) aan een heer (king). Elke heer grenst aan een vrouw
-	 * (queen). Elke vrouw grenst aan een boer (jack).
+	 * be checked for solution sofar. 
+	 * Rules: 
+	 * 		Elke aas (ace) grenst (horizontaal of verticaal) aan een heer (king). 
+	 * 		Elke heer grenst aan een vrouw(queen). 
+	 * 		Elke vrouw grenst aan een boer (jack).
 	 * 
 	 * @return true if all checks are correct.
 	 */
 	// uses methods borderCard and mustBeAdjacent to
 	private boolean isCorrect() {
-		// TODO
+		for (int i = 0; i < row.length; i++) {
+			int row = this.row[i];
+			int col = this.column[i];
+			Candidate candidate = board[row][col];
+			
+			if(candidate!=null){
+			
+			}
+		}
 		return true;
 	}
 
@@ -103,8 +149,25 @@ public class Solution extends Stack<Candidate>
 	 * @return a representation of the solution on the board
 	 */
 	public String toString() {
-		// TODO
-		return "";
+		String output = "";
+
+		for (int i = 0; i < board.length; i++) {
+			String row = "";
+			for (int j = 0; j < board[i].length; j++) {
+				Candidate finalist = board[i][j];
+				if (finalist != null) {
+					row += "|" + finalist.getCardChar();
+					if (j == board[0].length - 1 || board[i][j + 1] == null) {
+						row += "|";
+					}
+				} else {
+					row += "  ";
+				}
+			}
+			output += row + "\n";
+		}
+
+		return output;
 	}
 
 }
