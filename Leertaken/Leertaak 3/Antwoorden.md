@@ -1,16 +1,36 @@
-# Week 2
+# Week 3
 
 ## Opdracht 1
+Recursie in de informatica is een functie die zichzelf aanroept. Twee voorwaarden hiervoor zijn: 
 
-(…)
+ - Een probleem dat kleiner wordt bij elke aanroep
+ - Een basis uitkomst aka `Base Case` de laatste stap
+ - (een startprobleem)
 
 ## Opdracht 2
 
-(…)
+Er is een probleem dat steeds kleiner wordt:
+	
+	else
+		solve() // rest of solution with candidates left
+
+en er is een base case:
+
+	if solution complete
+		show solution
+
 
 ## Opdracht 3
 
-(…)
+- **Wat zijn je kandidaten? **
+	- De speelkaarten
+- **Hoe bewaar je de kandidaten, in welke datastructuur?**
+	- Een lijst
+- **Hoe heb je het veld gemodelleerd (datastructuur)? **
+	- Een 2D array met een solution Stack
+- **Hoe herstel je het veld als de recursieve aanroep returnt?**
+	- stack.pop
+
 
 ## Opdracht 4
 
