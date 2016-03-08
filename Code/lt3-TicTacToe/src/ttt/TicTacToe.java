@@ -3,8 +3,8 @@ package ttt;
 import java.util.Random;
 
 class TicTacToe {
-	private static final int HUMAN = 0;
-	private static final int COMPUTER = 1;
+	public static final int HUMAN = 0;
+	public static final int COMPUTER = 1;
 	public static final int EMPTY = 2;
 
 	public static final int HUMAN_WIN = 0;
@@ -32,6 +32,25 @@ class TicTacToe {
 		} else {
 			computerChar = 'O';
 			humanChar = 'X';
+		}
+	}
+
+	/**
+	 * Initialise the board from a custom config. Best for testing 💪
+	 *
+	 * @param board Board configuration. Pass a two-dimensional array like:
+	 *
+	 *    new int[][] {
+	 *      { HUMAN,    HUMAN,    COMPUTER },
+	 *      { COMPUTER, HUMAN,    COMPUTER },
+	 *      { HUMAN,    COMPUTER, EMPTY    }
+	 *    }
+	 */
+	public void loadBoard(int[][] board) {
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				this.place(row, col, board[row][col]);
+			}
 		}
 	}
 
@@ -120,7 +139,7 @@ class TicTacToe {
 	}
 
 	public String toString() {
-			//TODO:
+		// TODO:
 		return "...\n...\n...\n";
 	}
 

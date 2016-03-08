@@ -10,7 +10,8 @@ build-test:
 		-d bin \
 		-classpath bin:/usr/share/java/junit4.jar \
 		-sourcepath src \
-		src/test/*.java
+		-sourcepath test \
+		test/**/*.java
 
 run: build
 	java -classpath bin ttt.Tui
@@ -19,4 +20,4 @@ test: build-test
 	java \
 		-classpath bin:/usr/share/java/junit4.jar \
 		junit.textui.TestRunner \
-		test.AllTests
+		ttt.TestTicTacToe
