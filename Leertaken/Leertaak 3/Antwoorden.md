@@ -45,7 +45,7 @@ De waarderingsfunctie checkt of het bord in een winstaat is.
 
 ## Opdracht 8
 
-(…)
+Zie [TicTacToe.java](../../Code/lt3-TicTacToe/src/ttt/TicTacToe.java#L113-L175).
 
 ## Opdracht 9
 
