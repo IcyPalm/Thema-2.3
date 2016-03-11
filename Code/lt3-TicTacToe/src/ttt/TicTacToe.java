@@ -107,8 +107,66 @@ class TicTacToe {
 			return new Best(simpleEval);
 		}
 
-		// TODO: implementeren m.b.v. recursie/backtracking
-		return null;
+		return this.minimax(0);
+	}
+
+	/**
+	 * Get the best available move using the minimax algorithm.
+	 *
+	 * @param depth How many moves into the future we're looking.
+	 * @return The best available move.
+	 */
+	private Best minimax(int depth) {
+		if (this.gameOver()) {
+			return new Best(this.score(depth));
+		}
+
+		Collection<Integer> available = this.availableMoves();
+		Stream<Best> moves = available.stream().map(move -> {
+			TicTacToe child = this.clone().playMove(move);
+			int score = child.minimax(depth + 1).val;
+			return new Best(score, move);
+		});
+
+		return this.computerPlays()
+			? moves.reduce(new Best(Integer.MIN_VALUE), (a, b) -> a.val > b.val ? a : b)
+			: moves.reduce(new Best(Integer.MAX_VALUE), (a, b) -> a.val < b.val ? a : b);
+	}
+
+	/**
+	 * Rate this board.
+	 *
+	 * @param depth How many moves in the future we are.
+	 */
+	private int score(int depth) {
+		if (this.isAWin(HUMAN)) {
+			// This is a loss for the AI--so it's best to defer that as long as
+			// possible. A loss further away gets a better score than a loss in the
+			// next turn.
+			return depth - 9;
+		} else if (this.isAWin(COMPUTER)) {
+			// This is a win for the AI--so it's best to get there ASAP. A win sooner
+			// gets a better score than a win later.
+			return 9 - depth;
+		}
+		return 0;
+	}
+
+	/**
+	 * Get available moves (empty squares).
+	 *
+	 * @return All available moves.
+	 */
+	private Collection<Integer> availableMoves() {
+		Collection<Integer> moves = new ArrayList<>(9);
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				if (this.squareIsEmpty(row, col)) {
+					moves.add(row * 3 + col);
+				}
+			}
+		}
+		return moves;
 	}
 
 	//check if move ok
@@ -245,6 +303,10 @@ class TicTacToe {
 
 		public Best(int v) {
 			this(v, 0, 0);
+		}
+
+		public Best(int v, int move) {
+			this(v, move / 3, move % 3);
 		}
 
 		public Best(int v, int r, int c) {
