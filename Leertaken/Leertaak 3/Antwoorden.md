@@ -104,7 +104,26 @@ Zie [TicTacToe.java](../../Code/lt3-TicTacToe/src/ttt/TicTacToe.java#L113-L175).
 
 ## Opdracht 9
 
-(…)
+_O(N!)_.
+
+Een naïeve implementatie zou er ongeveer zo uit zien:
+
+    can_sum = (array, sum) ->
+      if array is empty
+        return whether sum equals 0
+      for each item in array
+        if can_sum (array except `item`, sum)
+           or can_sum (array except `item`, sum - item)
+          return true
+      return false
+
+Bij een array met _N_ items worden tijdens de eerste iteratie _N_ items
+gecheckt. Vervolgens wordt hetzelfde _N_ keer gedaan voor een array met _N - 1_
+items (recursieve case). Uiteindelijk levert dit een aantal operaties op als:
+
+> N * (N - 1) * (N - 2) * … * 1
+
+> = O(N!)
 
 ## Opdracht 10
 
