@@ -35,13 +35,48 @@ Stel een Node heeft _N_ children, dan heeft elke child _N - 1_ children. De
 Depth van een enkele Node is dus _N_, gelijk aan het aantal vrije vakjes. Aan
 de start van het spel is _N = 9_, en die _N_ gaat met elke zet 1 omlaag.
 
-De waarderingsfunctie checkt of het bord in een winstaat is.
+De waarderingsfunctie checkt of het bord in een winstaat is. Hierbij wordt ook
+rekening gehouden met het aantal zetten dat gebruikt is om tot de winstaat te
+komen. Een winstaat voor de Computer in 2 zetten tijd is beter dan een winstaat
+voor de Computer in 4 zetten tijd. Voor de Speler geldt het omgekeerde: liever
+dat de Speler na 4 zetten wint, dan na 2. We kunnen hier rekening mee houden
+door bij een winstaat te compenseren voor het aantal zetten:
 
-| State         | Waardering |
-|---------------|------------|
-| Computer wint | 1          |
-| Speler wint   | -1         |
-| Remise        | 0          |
+    if (speler wint)
+      aantal zetten - 9
+    else if (computer wint)
+      9 - aantal zetten
+    else
+      0
+
+Dit is bijna perfect, maar er is nog één situatie waarin deze waarderingsfunctie
+iets verkeerd kan doen:
+
+    X X a
+    O O b
+    . . .
+
+Hier kan de Computer kiezen om op vakje `b` in plaats van `a` te staan, wat
+waarschijnlijk op remise uitloopt (aangezien de Speler "waarschijnlijk" op
+vakje `a` gaat staan). Dat komt doordat _aantal zetten - 9_ en _9 - aantal
+zetten_ gelijk kunnen zijn aan _0_ (oftewel remise), waardoor sommige winstaten
+als gelijkwaardig aan remise worden gescored. Om dit te vermijden gebruiken we
+simpelweg _10_ in plaats van _9_:
+
+    if (speler wint)
+      aantal zetten - 10
+    else if (computer wint)
+      10 - aantal zetten
+    else
+      0
+
+| State                     | Waardering  |
+|---------------------------|-------------|
+| Computer wint in 3 zetten | 10 - 3 = 7  |
+| Computer wint in 7 zetten | 10 - 7 = 3  |
+| Speler wint in 3 zetten   | 3 - 10 = -7 |
+| Speler wint in 7 zetten   | 7 - 10 = -3 |
+| Remise                    | 0           |
 
 ## Opdracht 8
 
