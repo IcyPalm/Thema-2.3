@@ -143,11 +143,14 @@ class TicTacToe {
 			// This is a loss for the AI--so it's best to defer that as long as
 			// possible. A loss further away gets a better score than a loss in the
 			// next turn.
-			return depth - 9;
+			//
+			// We're subtracting by 10 here instead of 9 (the total amount of moves)
+			// to avoid winning moves ending up with the same score as a draw.
+			return depth - 10;
 		} else if (this.isAWin(COMPUTER)) {
 			// This is a win for the AI--so it's best to get there ASAP. A win sooner
 			// gets a better score than a win later.
-			return 9 - depth;
+			return 10 - depth;
 		}
 		return 0;
 	}
