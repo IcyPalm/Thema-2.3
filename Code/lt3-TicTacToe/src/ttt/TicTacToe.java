@@ -1,6 +1,10 @@
 package ttt;
 
+import java.util.Collection;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.Stream;
+import java.util.stream.IntStream;
 
 class TicTacToe {
 	public static final int HUMAN = 0;
@@ -21,8 +25,22 @@ class TicTacToe {
 
 	// Constructor
 	public TicTacToe() {
-		clearBoard();
-		initSide();
+		this.clearBoard();
+		this.initSide();
+	}
+
+	public TicTacToe(int[][] board) {
+		this.loadBoard(board);
+		this.initSide();
+	}
+
+	public TicTacToe(int[][] board, int initialSide) {
+		this.loadBoard(board);
+		if (initialSide == COMPUTER) {
+			this.setComputerPlays();
+		} else {
+			this.setHumanPlays();
+		}
 	}
 
 	private void initSide() {
@@ -69,8 +87,10 @@ class TicTacToe {
 	}
 
 	public int chooseMove() {
-		//Best best=chooseMove(COMPUTER);
-		//return best.row*3+best.column;
+		Best best = chooseMove(COMPUTER);
+		if (best != null) {
+			return best.row * 3 + best.column;
+		}
 		return 0;
 	}
 
@@ -93,34 +113,71 @@ class TicTacToe {
 
 	//check if move ok
 	public boolean moveOk(int move) {
-		//return ( move>=0 && move <=8 && board[move/3 ][ move%3 ] == EMPTY );
-		return true;
+		return move >= 0 &&
+			move <= 8 &&
+			this.squareIsEmpty(move / 3, move % 3);
 	}
 
 	// play move
-	public void playMove(int move) {
+	public TicTacToe playMove(int move) {
 		board[move / 3][move % 3] = this.side;
 		if (side == COMPUTER) {
 			this.side = HUMAN;
 		} else {
 			this.side = COMPUTER;
 		}
+		return this;
 	}
 
 	// Simple supporting routines
 	private void clearBoard() {
-		//TODO:
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				this.board[row][col] = EMPTY;
+			}
+		}
 	}
 
 	private boolean boardIsFull() {
-		//TODO:
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				if (this.board[row][col] == EMPTY) {
+					return false;
+				}
+			}
+		}
 		return true;
+	}
+
+	/**
+	 * Create a stream of all winning positions, i.e. series of locations that
+	 * when occupied by a single player count as a win for that player.
+	 *
+	 * @return Streeeeeeeeeeeeeeeeeeeams.
+	 */
+	private Stream<IntStream> winningPositions() {
+		return Stream.of(
+			// Horizontals
+			IntStream.of(0, 1, 2),
+			IntStream.of(3, 4, 5),
+			IntStream.of(6, 7, 8),
+			// Verticals
+			IntStream.of(0, 3, 6),
+			IntStream.of(1, 4, 7),
+			IntStream.of(2, 5, 8),
+			// Diagonals
+			IntStream.of(0, 4, 8),
+			IntStream.of(2, 4, 6)
+		);
 	}
 
 	// Returns whether 'side' has won in this position
 	private boolean isAWin(int side) {
-		//TODO:
-		return true;
+		return this.winningPositions().anyMatch(line ->
+			line
+				.map(position -> this.board[position / 3][position % 3])
+				.allMatch(field -> field == side)
+		);
 	}
 
 	// Play a move, possibly clearing a square
@@ -129,18 +186,37 @@ class TicTacToe {
 	}
 
 	private boolean squareIsEmpty(int row, int column) {
-		return board[row][column] == EMPTY;
+		return this.board[row][column] == EMPTY;
 	}
 
 	// Compute static value of current position (win, draw, etc.)
 	private int positionValue() {
-		// TODO:
+		if (this.isAWin(HUMAN)) {
+			return HUMAN_WIN;
+		} else if (this.isAWin(COMPUTER)) {
+			return COMPUTER_WIN;
+		} else if (this.boardIsFull()) {
+			return DRAW;
+		}
 		return UNCLEAR;
 	}
 
 	public String toString() {
-		// TODO:
-		return "...\n...\n...\n";
+		StringBuilder render = new StringBuilder();
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 3; col++) {
+				int value = this.board[row][col];
+				if (value == HUMAN) {
+					render.append(this.humanChar);
+				} else if (value == COMPUTER) {
+					render.append(this.computerChar);
+				} else {
+					render.append('.');
+				}
+			}
+			render.append('\n');
+		}
+		return render + "";
 	}
 
 	public boolean gameOver() {
@@ -156,6 +232,10 @@ class TicTacToe {
 		} else {
 			return "nobody";
 		}
+	}
+
+	public TicTacToe clone() {
+		return new TicTacToe(this.board, this.side);
 	}
 
 	private class Best {
