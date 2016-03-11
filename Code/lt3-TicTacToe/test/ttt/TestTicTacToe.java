@@ -10,22 +10,24 @@ public class TestTicTacToe extends TestCase {
 
   private TicTacToe ttt;
 
+  public void setup(int[][] board) {
+    this.setup();
+    this.ttt.loadBoard(board);
+  }
   public void setup() {
     this.ttt = new TicTacToe();
   }
 
   @Test
   public void testPositionValue() {
-    this.setup();
-    ttt.loadBoard(new int[][] {
+    this.setup(new int[][] {
       { X, X, I },
       { O, O, I },
       { X, O, I },
     });
     assertFalse(ttt.gameOver());
 
-    this.setup();
-    ttt.loadBoard(new int[][] {
+    this.setup(new int[][] {
       { X, O, O },
       { X, X, I },
       { O, O, X },
@@ -33,8 +35,7 @@ public class TestTicTacToe extends TestCase {
     assertTrue(ttt.gameOver());
     assertEquals(ttt.winner(), "human");
 
-    this.setup();
-    ttt.loadBoard(new int[][] {
+    this.setup(new int[][] {
       { X, X, O },
       { O, O, X },
       { O, X, X },
@@ -46,8 +47,7 @@ public class TestTicTacToe extends TestCase {
   @Test
   public void testChooseMove() {
     // Should pick the winning move
-    this.setup();
-    ttt.loadBoard(new int[][] {
+    this.setup(new int[][] {
       { X, X, I },
       { O, O, I },
       { I, I, I },
@@ -55,8 +55,7 @@ public class TestTicTacToe extends TestCase {
     assertEquals(ttt.chooseMove(), 5);
 
     // Should prevent a winning move by the human player
-    this.setup();
-    ttt.loadBoard(new int[][] {
+    this.setup(new int[][] {
       { X, X, I },
       { O, I, I },
       { O, I, I },
