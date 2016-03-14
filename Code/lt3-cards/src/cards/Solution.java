@@ -84,7 +84,7 @@ public class Solution extends Stack<Candidate>
 		if(bordersCard(row[this.size()], column[this.size()], candidate.getCardChar())){
 			return false;
 		}
-		return true;
+		return isCorrect(candidate);
 	}
 
 	public void record(Candidate candidate) {
@@ -132,14 +132,21 @@ public class Solution extends Stack<Candidate>
 	 * @return true if all checks are correct.
 	 */
 	// uses methods borderCard and mustBeAdjacent to
-	private boolean isCorrect() {
-		for (int i = 0; i < row.length; i++) {
-			int row = this.row[i];
-			int col = this.column[i];
-			Candidate candidate = board[row][col];
-			
-			if(candidate!=null){
-			
+	private boolean isCorrect(Candidate candidate) {
+		if (this.size() != 7)	return true;
+		for (int i = 0; i < this.size(); i++) {
+			char cardChar = this.get(i).getCardChar();
+			if (cardChar != 'J') {
+				if (! bordersCard(row[i], column[i], mustBeAdjacentTo(cardChar))) {
+					return false;
+				}
+		
+			}
+		}
+		char candidateChar = candidate.getCardChar();
+		if (candidateChar != 'J') {
+			if (! bordersCard(row[this.size()], column[this.size()], mustBeAdjacentTo(candidateChar))) {
+				return false;
 			}
 		}
 		return true;
@@ -150,7 +157,7 @@ public class Solution extends Stack<Candidate>
 	 */
 	public String toString() {
 		String output = "";
-
+		
 		for (int i = 0; i < board.length; i++) {
 			String row = "";
 			for (int j = 0; j < board[i].length; j++) {
