@@ -2,6 +2,20 @@
 
 ## Opdracht 1
 
+### 29.4
+
+Zie [SumThreads.java](../../Code/lt4-opdracht-1/src/lt4/SumThreads.java).
+
+Gebruikelijke output:
+
+```
+$ make sum-threads
+Unsynchronized: 989
+Synchronized: 1000
+```
+
+### 29.8
+
 (…)
 
 ## Opdracht 2
