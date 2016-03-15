@@ -16,7 +16,7 @@ Synchronized: 1000
 
 ### 29.8
 
-(…)
+Zie [ThreadCooperation.java](../../Code/lt4-opdracht-1/src/lt4/ThreadCooperation.java).
 
 ## Opdracht 2
 
