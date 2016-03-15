@@ -12,11 +12,11 @@ public class DynamischProgrammerenTest extends TestCase {
 	private int sum;
 	private Solver solver;
 
-	@Test
-	public void testRecursive() {
-		this.solver = new RecursiveSolver();
-		this.doTest();
-	}
+//	@Test
+//	public void testRecursive() {
+//		this.solver = new RecursiveSolver();
+//		this.doTest();
+//	}
 
 	@Test
 	public void testBottomUp() {
