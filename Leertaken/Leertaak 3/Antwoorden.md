@@ -104,27 +104,94 @@ Zie [TicTacToe.java](../../Code/lt3-TicTacToe/src/ttt/TicTacToe.java#L113-L175).
 
 ## Opdracht 9
 
-(…)
+_O(N!)_.
+
+Een naïeve implementatie zou er ongeveer zo uit zien:
+
+    can_sum = (array, sum) ->
+      if array is empty
+        return whether sum equals 0
+      for each item in array
+        if can_sum (array except `item`, sum)
+           or can_sum (array except `item`, sum - item)
+          return true
+      return false
+
+Bij een array met _N_ items worden tijdens de eerste iteratie _N_ items
+gecheckt. Vervolgens wordt hetzelfde _N_ keer gedaan voor een array met _N - 1_
+items (recursieve case). Uiteindelijk levert dit een aantal operaties op als:
+
+> N * (N - 1) * (N - 2) * … * 1
+
+> = O(N!)
 
 ## Opdracht 10
 
-(…)
+> list = { 3, 5, 7, 9, 11 }  
+> n = 5  
+> B = 17
+
+| M | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|
+| 1 | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  |
+
 
 ## Opdracht 11
 
-(…)
+Elke rij stelt een getal in de set voor, en elke kolom stelt een "subsom" voor.
+Voor deze opgave gaan we uit van 1-indexed lijsten.
+
+Een kolom (subsom) in rij `i` bevat een ✅ indien:
+
+  - dezelfde kolom in de vorige rij `i - 1` een ✅ bevat—hier wordt het "huidige"
+    getal dus _niet_ meegenomen in de som—, of
+  - De cel in de vorige rij, in de huidige kolom min het "huidige" getal
+    (`list[i]`) een ✅ bevat—hier wordt het "huidige" getal dus bij de vorige
+    som opgeteld.
+
+In functievorm:
+
+> q(i, j) = max(q(i - 1, j), q(i - 1, j - list[i]))
+
+Hierbij zijn:
+
+> q(0, j) = ❌ = 0
+
+Dit is de "nulde" rij, waar geen enkel getal uit de set wordt meegenomen. Nul
+getallen bij elkaar opgeteld komen natuurlijk nooit op een subsom > 0 uit.
+
+> q(i, 0) = ✅ = 1
+
+Dit is de "nulde" kolom, waar N getallen uit de set tot 0 moeten optellen. Dat
+kan altijd, door 0 getallen bij elkaar op te tellen.
+
+Totaalresultaat:
+
+| M | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 |
+|---|---|---|---|---|---|---|---|---|---|----|----|----|----|----|----|----|----|
+| 1 | ❌ | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| 2 | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  | ❌  |
+| 3 | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ❌ | ✅  | ❌  | ✅  | ❌  | ❌  | ✅  | ❌  | ❌  |
+| 4 | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅  | ❌  | ✅  | ❌  | ✅  | ✅  | ✅  | ✅  |
+| 5 | ❌ | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | ✅ | ✅ | ✅  | ✅  | ✅  | ❌  | ✅  | ✅  | ✅  | ✅  |
+
 
 ## Opdracht 12
 
-(…)
+Zie [BottomUpSolver.java](../../Code/lt3-dynprog/src/dynprog/solvers/BottomUpSolver.java).
+
+> `// The result is in the bottom right of the matrix.`
 
 ## Opdracht 13
 
-(…)
+_O(n × B)_.
+
+Voor een lijst met _n_ getallen en een targetsom _B_, wordt een matrix opgebouwd
+van _n × B_ cellen, en elke cel wordt slechts éénmaal berekend.
 
 ## Opdracht 14
 
-(…)
+Zie [TopDownSolver.java](../../Code/lt3-dynprog/src/dynprog/solvers/TopDownSolver.java).
 
 ## Opdracht 15
 
