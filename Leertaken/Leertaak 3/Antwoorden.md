@@ -184,7 +184,10 @@ Zie [BottomUpSolver.java](../../Code/lt3-dynprog/src/dynprog/solvers/BottomUpSol
 
 ## Opdracht 13
 
-(…)
+_O(n × B)_.
+
+Voor een lijst met _n_ getallen en een targetsom _B_, wordt een matrix opgebouwd
+van _n × B_ cellen, en elke cel wordt slechts éénmaal berekend.
 
 ## Opdracht 14
 
