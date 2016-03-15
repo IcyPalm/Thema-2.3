@@ -178,7 +178,9 @@ Totaalresultaat:
 
 ## Opdracht 12
 
-(…)
+Zie [BottomUpSolver.java](../../Code/lt3-dynprog/src/dynprog/solvers/BottomUpSolver.java).
+
+> `// The result is in the bottom right of the matrix.`
 
 ## Opdracht 13
 
