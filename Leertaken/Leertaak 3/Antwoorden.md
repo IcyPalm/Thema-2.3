@@ -152,6 +152,6 @@ Zie [TicTacToe.java](../../Code/lt3-TicTacToe/src/ttt/TicTacToe.java#L113-L175).
 
 ## Opdracht 21
 
-(…)
+Zie hiervoor ook de benchmark, vooral de enkel en dubbel karakter set. Hier is goed te zien dat de lengte van de dictionary enorm veel uitmaakt op de compressieratio. Daarnaast zal over het algemeen gelden dat hoe groter de tekst hoe efficienter de compressie zal zijn omdat er dan relatief meer karakters per dictionary entry zijn.
 
 
