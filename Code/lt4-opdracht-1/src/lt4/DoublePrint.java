@@ -20,8 +20,10 @@ public class DoublePrint {
 			this.number = number;
 		}
 		public void run() {
-			System.out.print(number);
-			System.out.println(number);
+			synchronized (System.out) {
+				System.out.print(number);
+				System.out.println(number);
+			}
 		}
 	}
 }
