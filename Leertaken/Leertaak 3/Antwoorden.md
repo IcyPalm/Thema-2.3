@@ -195,27 +195,28 @@ Zie [TopDownSolver.java](../../Code/lt3-dynprog/src/dynprog/solvers/TopDownSolve
 
 ## Opdracht 15
 
-(…)
+Zie [UncompressTest.java](../../Code/lt3-filecomp/src/test/UncompressTest.java).
 
 ## Opdracht 16
 
-(…)
+Nope
 
 ## Opdracht 17
 
-(…)
+Nope
 
 ## Opdracht 18
 
-(…)
+Zie [HuffmanTree.java](../../Code/lt3-filecomp/src/huffman/HuffmanTree.java).
+
 
 ## Opdracht 19
 
-(…)
+Jup, werken
 
 ## Opdracht 20
 
-(…)
+Zie [Benchmark.java](../../Code/lt3-filecomp/src/benchmark/Benchmark.java).
 
 ## Opdracht 21
 
