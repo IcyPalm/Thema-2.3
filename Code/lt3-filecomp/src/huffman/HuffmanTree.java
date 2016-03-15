@@ -81,7 +81,18 @@ public class HuffmanTree
 	  */
 	 public int getChar( String code )
 	 {
-	     // TODO = opdracht           
+		 HuffNode node = root;
+		 for (int i = 0; i < code.length(); i++)
+		 {
+			if (node == null) break;
+
+			char c = code.charAt(i);
+			if (c == '0')
+				node = node.left;
+			else
+				node = node.right;
+		 }
+		 return node == null ? ERROR : node.value;
 	 }
 	 
 	 /**
@@ -156,6 +167,17 @@ public class HuffmanTree
 	              
 	     // TODO = opdracht      
 	     
+	     while(ar.size()>1){
+	    	Collections.sort(ar);
+	    	HuffNode left = ar.remove(0);
+	    	HuffNode right = ar.remove(0);
+	    	HuffNode result = new HuffNode(INCOMPLETE_CODE, left.weight+right.weight, left, right, null);
+	    	
+	    	left.parent = result;
+	    	right.parent = result;
+	    	
+	    	ar.add(result);
+	     }
 	     root = ar.remove(0);
 	 }
 }

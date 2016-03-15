@@ -1,4 +1,4 @@
-package huffman;
+package test;
 
 //import huffman.HuffmanTree;
 
@@ -7,6 +7,7 @@ import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import huffman.HuffmanTree;
 import junit.framework.*;
 
 /*
