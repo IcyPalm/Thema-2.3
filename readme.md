@@ -7,6 +7,8 @@ Answers:
 
  - [Leertaak 1](./Leertaken/Leertaak 1)
  - [Leertaak 2](./Leertaken/Leertaak 2)
+ - [Leertaak 3](./Leertaken/Leertaak 3)
+ - [Leertaak 4](./Leertaken/Leertaak 4)
 
 The code for all learning tasks is in the [Code/](./Code) folder. It's all
 in one place so importing into Eclipse is supar simple ✌🖔
