@@ -17,3 +17,13 @@ build-thread-cooperation:
 
 thread-cooperation: build-thread-cooperation
 	java -classpath bin lt4.ThreadCooperation
+
+build-double-print:
+	mkdir -p bin
+	javac \
+		-d bin \
+		-sourcepath src \
+		src/lt4/DoublePrint.java
+
+double-print: build-double-print
+	java -classpath bin lt4.DoublePrint
