@@ -1,12 +1,8 @@
 package cards;
 
-import java.util.Scanner;
-
 public class Problem {
 	private Candidates candidates = new Candidates();
 	private Solution solution = new Solution();
-	private Scanner reader = new Scanner(System.in);
-
 	public void solve() {
 		//System.out.println(candidates);
 		// System.out.println(solution);

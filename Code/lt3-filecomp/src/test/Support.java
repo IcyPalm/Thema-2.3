@@ -1,4 +1,4 @@
-package huffman;
+package test;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -154,6 +154,7 @@ public class Support {
 				}
 				result[i] = character;
 			}
+			reader.close();
 		}
 		catch (Exception e) {
 			System.err.println("Fatal error: could not read testfiles from disk.");
