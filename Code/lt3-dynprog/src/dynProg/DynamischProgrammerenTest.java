@@ -40,6 +40,4 @@ public class DynamischProgrammerenTest extends TestCase {
 		// Precies goed
 		assertTrue(solver.solve(new int[] { 1, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5 }, 31));
 	}
-
-
 }
