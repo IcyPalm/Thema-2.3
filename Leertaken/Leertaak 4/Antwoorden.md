@@ -18,6 +18,14 @@ Synchronized: 1000
 
 Zie [ThreadCooperation.java](../../Code/lt4-opdracht-1/src/lt4/ThreadCooperation.java).
 
+### Synchronizing threads using locks
+
+Zie [DoublePrint.java](../../Code/lt4-opdracht-1/src/lt4/DoublePrint.java).
+
+### Synchronizing threads using conditions
+
+Zie [DoublePrintReverse.java](../../Code/lt4-opdracht-1/src/lt4/DoublePrintReverse.java).
+
 ## Opdracht 2
 
 (…)
@@ -45,5 +53,3 @@ Zie [ThreadCooperation.java](../../Code/lt4-opdracht-1/src/lt4/ThreadCooperation
 ## Opdracht 8
 
 (…)
-
-
