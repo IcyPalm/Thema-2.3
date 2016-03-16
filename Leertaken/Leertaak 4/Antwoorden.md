@@ -36,7 +36,9 @@ Zie [DoublePrintReverse.java](../../Code/lt4-opdracht-1/src/lt4/DoublePrintRever
 
 ## Opdracht 4
 
-(…)
+**Wat zie je als er geen obstakels worden gescand?**
+
+Niks, want er zijn dan verder geen tokens om te parsen
 
 ## Opdracht 5
 
