@@ -28,7 +28,7 @@ Zie [DoublePrintReverse.java](../../Code/lt4-opdracht-1/src/lt4/DoublePrintRever
 
 ## Opdracht 2
 
-(…)
+![Zie Opdracht-2.png](../../Code/lt4-MobileRobot/Opdracht-2.png)
 
 ## Opdracht 3
 
