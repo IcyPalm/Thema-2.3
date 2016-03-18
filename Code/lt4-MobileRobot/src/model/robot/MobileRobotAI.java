@@ -55,42 +55,37 @@ public class MobileRobotAI implements Runnable {
                 PrintWriter output = new PrintWriter(new PipedOutputStream(pipeIn), true);
 
                 robot.setOutput(output);
-                
-               
-                
+
+
+
                 robot.sendCommand("R1.GETPOS");
                 result = input.readLine();
-                parsePosition(result, position);
-                
+                position = parsePosition(result);
+
                 robot.sendCommand("L1.SCAN");
                 result = input.readLine();
-                parseMeasures(result, measures);
+                measures = parseMeasures(result);
                 map.drawLaserScan(position, measures);
-                
+
                 moveForward((int) measures[0]);
-                
+
                 turnRight(90);
                 while(running){
-                    robot.sendCommand("R1.GETPOS");
-                    result = input.readLine();
-                    parsePosition(result, position);
-                    
-                    robot.sendCommand("L1.SCAN");
-                    result = input.readLine();
-                    parseMeasures(result, measures);
-                    map.drawLaserScan(position, measures);
+                    position = getPos();
+
+                    measures = laserScan(position);
                     if(measures[0]>60){
                         moveForward(60);
-                        
+
                     }else{
                         moveForward((int) measures[0]);
                         turnRight(90);
-                        
+
                     }
-                     
+
                 }
-                
-                
+
+
 
             } catch (IOException ioe) {
                 System.err.println("execution stopped");
@@ -100,19 +95,20 @@ public class MobileRobotAI implements Runnable {
 
     }
 
-   
 
-    private void getPos(double position[]) throws IOException {
+
+    private double[] getPos() throws IOException {
         robot.sendCommand("R1.GETPOS");
         String result = input.readLine();
-        parsePosition(result, position);
+        return parsePosition(result);
     }
 
-    private void laserScan(double position[], double measures[]) throws IOException {
+    private double[] laserScan(double position[]) throws IOException {
         robot.sendCommand("L1.SCAN");
         String result = input.readLine();
-        parseMeasures(result, measures);
+        double[] measures = parseMeasures(result);
         map.drawLaserScan(position, measures);
+        return measures;
     }
 
     private void moveForward(int distance) throws IOException {
@@ -137,7 +133,7 @@ public class MobileRobotAI implements Runnable {
         robot.sendCommand("P1.ROTATERIGHT " + Integer.toString(degrees));
         String result = input.readLine();
     }
-    
+
     private void turnLeft(int degrees) throws IOException {
         robot.sendCommand("P1.ROTATELEFT " + Integer.toString(degrees));
         String result = input.readLine();
@@ -155,10 +151,11 @@ public class MobileRobotAI implements Runnable {
         }
     }
 
-    private void parsePosition(String value, double position[]) {
+    private double[] parsePosition(String value) {
         int indexInit;
         int indexEnd;
         String parameter;
+        double[] position = new double[3];
 
         indexInit = value.indexOf("X=");
         parameter = value.substring(indexInit + 2);
@@ -173,9 +170,12 @@ public class MobileRobotAI implements Runnable {
         indexInit = value.indexOf("DIR=");
         parameter = value.substring(indexInit + 4);
         position[2] = Double.parseDouble(parameter);
+
+        return position;
     }
 
-    private void parseMeasures(String value, double measures[]) {
+    private double[] parseMeasures(String value) {
+        double[] measures = new double[360];
         for (int i = 0; i < 360; i++) {
             measures[i] = 100.0;
         }
@@ -197,6 +197,7 @@ public class MobileRobotAI implements Runnable {
                 System.out.println("direction = " + direction + " distance = " + distance);
             }
         }
+        return measures;
     }
 
 }
