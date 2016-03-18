@@ -32,7 +32,61 @@ Zie [DoublePrintReverse.java](../../Code/lt4-opdracht-1/src/lt4/DoublePrintRever
 
 ## Opdracht 3
 
-(…)
+**Geef aan welk lijnstukje de lengte _v<sub>x</sub> × cos(R<sub>t</sub>)_ heeft.**
+
+> cos(R<sub>t</sub>) = (v<sub>i</sub> ÷ v<sub>x</sub>)  
+> v<sub>x</sub> × cos(R<sub>t</sub>) = v<sub>i</sub> ÷ v<sub>x</sub> × v<sub>x</sub>
+
+> v<sub>i</sub> = v<sub>x</sub> × cos(R<sub>t</sub>)_
+
+(in rood)
+
+**Geef aan welk lijnstukje de lengte _v<sub>y</sub> × sin(R<sub>t</sub>)_ heeft.**
+
+> sin(R<sub>t</sub>) = (v<sub>j</sub> ÷ v<sub>y</sub>)  
+> v<sub>y</sub> × sin(R<sub>t</sub>) = v<sub>j</sub> ÷ v<sub>y</sub> × v<sub>y</sub>
+
+> v<sub>j</sub> = v<sub>y</sub> × sin(R<sub>t</sub>)
+
+(in groen)
+
+**Verklaar nu de eerste vergelijking (V<sub>x</sub> = …)**
+
+![Plaatje 3a](./opdracht-3a.png)
+
+> V<sub>x</sub> = v<sub>x</sub> × cos(R<sub>t</sub>) - v<sub>y</sub> × sin(R<sub>t</sub>) + R<sub>x</sub>
+
+> V<sub>x</sub> = R<sub>x</sub> + v<sub>i</sub> - v<sub>j</sub>
+
+Om te vertalen van een lokale coordinaat _v<sub>x</sub>_ naar een globale
+coordinaat _V<sub>x</sub>_, nemen we eerst de oorsprongcoordinaat van het vlak
+_v_ (= _R<sub>x</sub>_). In de afbeelding is te zien dat het verschil tussen
+de oorsprongscoordinaat _R<sub>x</sub>_ en de lokale coordinaat _v<sub>x</sub>_
+gelijk is aan _v<sub>i</sub> - v<sub>j</sub>_.
+
+**Neem een nieuw plaatje en doe hetzelfde voor V<sub>y</sub>.**
+
+> V<sub>y</sub> = v<sub>x</sub> × sin(R<sub>t</sub>) + v<sub>y</sub> × cos(R<sub>t</sub>) + R<sub>y</sub>
+
+![Plaatje 3b](./opdracht-3b.png)
+
+> sin(R<sub>t</sub>) = v<sub>k</sub> ÷ v<sub>x</sub>  
+> v<sub>x</sub> × sin(R<sub>t</sub>) = v<sub>k</sub>
+
+(in rood)
+
+> cos(R<sub>t</sub>) = v<sub>m</sub> ÷ v<sub>y</sub>  
+> v<sub>y</sub> × cos(R<sub>t</sub>) = v<sub>m</sub>
+
+(in groen)
+
+> V<sub>y</sub> = R<sub>y</sub> + v<sub>k</sub> - v<sub>m</sub>
+
+Om te vertalen van een lokale coordinaat _v<sub>y</sub>_ naar een globale
+coordinaat _V<sub>y</sub>_, nemen we eerst de oorsprongcoordinaat van het vlak
+_v_ (= _R<sub>y</sub>_). In de afbeelding is te zien dat het verschil tussen
+de oorsprongscoordinaat _R<sub>y</sub>_ en de lokale coordinaat _v<sub>y</sub>_
+gelijk is aan _v<sub>k</sub> + v<sub>m</sub>_.
 
 ## Opdracht 4
 
