@@ -64,7 +64,7 @@ public class OccupancyMapController extends JMenu implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource().equals(this.menuFileOpenMap)) {
-			JFileChooser chooser = new JFileChooser(new File("c:"));
+			JFileChooser chooser = new JFileChooser(new File("."));
 			int returnVal = chooser.showOpenDialog(this);
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				if (environment.loadMap(chooser.getSelectedFile())){
