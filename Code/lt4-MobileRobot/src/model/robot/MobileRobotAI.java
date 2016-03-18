@@ -31,6 +31,12 @@ public class MobileRobotAI implements Runnable {
 
     private boolean running;
 
+    private static final int STEP_SIZE = 90;
+    private static final int ROBOT_WIDTH = 40;
+    private static final int ROBOT_LENGTH = 50;
+    private static final int WALL_MARGIN = 10;
+    private static final int LASER_RANGE = 100;
+
     public MobileRobotAI(MobileRobot robot, OccupancyMap map) {
         this.map = map;
         this.robot = robot;
@@ -56,37 +62,49 @@ public class MobileRobotAI implements Runnable {
 
                 robot.setOutput(output);
 
-
-
-                robot.sendCommand("R1.GETPOS");
-                result = input.readLine();
-                position = parsePosition(result);
-
-                robot.sendCommand("L1.SCAN");
-                result = input.readLine();
-                measures = parseMeasures(result);
-                map.drawLaserScan(position, measures);
-
-                moveForward((int) measures[0]);
-
-                turnRight(90);
-                while(running){
+                while (running) {
                     position = getPos();
-
                     measures = laserScan(position);
-                    if(measures[0]>60){
-                        moveForward(60);
-
-                    }else{
-                        moveForward((int) measures[0]);
-                        turnRight(90);
-
+                    int freeDistance = (int) freeDistanceDirection(measures, 0);
+                    System.out.println("Free: " + freeDistance);
+                    System.exit(0);
+                    if (freeDistance > WALL_MARGIN) {
+                        moveForward(freeDistance - WALL_MARGIN);
+                    } else {
+                        turnLeft(90);
+                        break;
                     }
-
                 }
 
+                while (running) {
+                    position = getPos();
+                    measures = laserScan(position);
 
+                    int freeDistance = (int) freeDistanceDirection(measures, 90);
+                    if (freeDistance > WALL_MARGIN + 30) {
+                      System.out.println("Free distance right: " + freeDistance + "; moving " + ((int) freeDistance - WALL_MARGIN - 30));
+                      turnRight(90);
+                      moveForward((int) freeDistance - WALL_MARGIN - 30);
+                      continue;
+                    }
 
+                    freeDistance = (int) freeDistanceDirection(measures, 0);
+                    if (freeDistance > WALL_MARGIN + 10) {
+                      System.out.println("Free distance straight: " + freeDistance + "; moving " + ((int) freeDistance - WALL_MARGIN - 10));
+                      moveForward((int) freeDistance - WALL_MARGIN - 10);
+                      continue;
+                    }
+
+                    freeDistance = (int) freeDistanceDirection(measures, -90);
+                    if (freeDistance > WALL_MARGIN + 30) {
+                      System.out.println("Free distance left: " + freeDistance + "; moving " + ((int) freeDistance - WALL_MARGIN - 30));
+                      turnLeft(90);
+                      moveForward((int) freeDistance - WALL_MARGIN - 30);
+                      continue;
+                    }
+
+                    throw new IOException(":'(");
+                }
             } catch (IOException ioe) {
                 System.err.println("execution stopped");
                 running = false;
@@ -95,7 +113,21 @@ public class MobileRobotAI implements Runnable {
 
     }
 
-
+    private double freeDistanceDirection(double[] measures, int direction) {
+      double freeDistance = Double.MAX_VALUE;
+      for (int i = direction - 90; i < direction + 90; i++) {
+        int deg = i < 0 ? i + 360 : i;
+        double hypothenuse = measures[deg];
+        double horizDistanceToWall = Math.cos((90 - deg) * Math.PI / 180) * hypothenuse;
+        System.out.println(horizDistanceToWall + " @ " + hypothenuse);
+        if (horizDistanceToWall < ROBOT_WIDTH / 2 + WALL_MARGIN) {
+          freeDistance = Math.min(freeDistance, Math.cos(deg * Math.PI / 180) * hypothenuse);
+        } else {
+          freeDistance = Math.min(freeDistance, STEP_SIZE);
+        }
+      }
+      return freeDistance;
+    }
 
     private double[] getPos() throws IOException {
         robot.sendCommand("R1.GETPOS");
@@ -194,7 +226,7 @@ public class MobileRobotAI implements Runnable {
                 }
                 measures[direction] = distance;
                 // Printing out all the degrees and what it encountered.
-                System.out.println("direction = " + direction + " distance = " + distance);
+                // System.out.println("direction = " + direction + " distance = " + distance);
             }
         }
         return measures;
