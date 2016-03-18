@@ -42,7 +42,9 @@ Niks, want er zijn dan verder geen tokens om te parsen
 
 ## Opdracht 5
 
-(…)
+Het idee is om de muur te gaan volgen met de rechterhand, ofwel: `Right hand rule`. Rij naar dichtsbijzijnde muur, stuur links zodat je langs de muur komt te staan. Rij rechtdoor todat er een mogelijkheid is om rechtsaf te gaan. Komt deze niet, sla linksaf zodra je (bijna) tegen de muur aanrijdt. 
+
+Tussendoor moet uiteraard wel gescand worden om te bepalen of de muur verder loopt.
 
 ## Opdracht 6
 
