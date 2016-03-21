@@ -40,7 +40,7 @@ public class MobileRobotAI implements Runnable {
     private static final int ROBOT_WIDTH = 40;
     private static final int ROBOT_LENGTH = 50;
     
-    private static final int LASER_RANGE = 100;
+    
     
     private static final int NORTH = 360;
     private static final int EAST = 90;
@@ -48,6 +48,7 @@ public class MobileRobotAI implements Runnable {
     private static final int WEST = 270;
 
     private static final int WALL_MARGIN = 2;
+    private static final int LASER_RANGE = 10;
     
     public MobileRobotAI(MobileRobot robot, OccupancyMap map) {
         this.map = map;
@@ -68,6 +69,7 @@ public class MobileRobotAI implements Runnable {
         this.result = "";
         
         boolean start = true;
+        boolean turnRight = false;
         
         System.out.println("Robot is starting");
         
@@ -97,9 +99,26 @@ public class MobileRobotAI implements Runnable {
                 
 
                 if(wallRight() && wallForward()){
+                    System.out.println("Turning left");
                     turnLeft();
+                    continue;
+                }else if(turnRight){
+                    System.out.println("Turning right");
+                    turnRightAroundWall();
+                    turnRight = false;
+                    continue;
+                }else if(wallRight() && !turnRight){
+                    
+                    int stepsforward = moveBlocksForward(true);
+                    System.out.println("Steps forward: "+stepsforward);
+                    if(stepsforward == 0){
+                        turnRight = true;
+                    }else{
+                        moveForward(stepsforward);
+                        System.out.println("Going forward");
+                    }
                 }else{
-                    moveForward(1);
+                    System.err.println("Something went wrong");
                 }
                 
                 
@@ -111,10 +130,66 @@ public class MobileRobotAI implements Runnable {
         }
 
     }
+    
+    private int moveBlocksForward(boolean wallmode){
+        int positions[] = convertPosition();
+        int x = positions[0];
+        int y = positions[1];
+        int direction = positions[2];
+        
+        int directionToRight = getDirectiontoRight(direction);
+        
+        int[] rightWall = getWallFromMap(x, y, directionToRight);
+        
+        int wallX = rightWall[0];
+        int wallY = rightWall[1];
+        
+        int blocksToMove = 0;
+        
+        char[][] mapCopy = map.getGrid();
+        
+        
+        for (int i = 1; i < LASER_RANGE; i++) {
+            blocksToMove = i;
+            char forwardBlock = getCharForward(x, y, direction, i, mapCopy);
+            System.out.println("Forward scan - Found char: " + forwardBlock);
+            
+            
+            if(forwardBlock == map.getObstacle() || forwardBlock == map.getUnknown()|| forwardBlock != map.getEmpty()){
+                System.out.println("Forward scan - Found wall/unknown: " + i);
+                blocksToMove--;
+                break;
+            }
+            
+        }
+        blocksToMove = blocksToMove - WALL_MARGIN;
+        System.out.println("Forward scan - Max distance: "
+                + blocksToMove);
+        
+        if (wallmode) {
+            for (int i = 1; i < LASER_RANGE; i++) {
+                char wallBlock = getCharForward(wallX, wallY, direction, i, mapCopy);
+                System.out.println("Wall scan - Found char: " + wallBlock);
+                
+                
+                if(wallBlock == map.getEmpty()){
+                    System.out.println("Forward Wall - Found end of wall: " + i);
+                    i--;
+                    System.out.println("Forward Wall, Blocks: "+blocksToMove+"i: "+i );
+                    if(i<blocksToMove){
+                        blocksToMove = i;
+                    }
+                    break;
+                }
+            }
+        }
+        System.out.println("Forward wall: "+blocksToMove);
+        return blocksToMove;
+    }
 
    
     private boolean wallRight(){
-        char[][] copyMap = map.getGrid();
+        char[][] mapCopy = map.getGrid();
         int positions[] = convertPosition();
         
         int direction = getDirectiontoRight(positions[2]);
@@ -122,14 +197,14 @@ public class MobileRobotAI implements Runnable {
         int[] wallCoordinates = getWallFromMap(positions[0], positions[1], direction);
       
 
-        if (copyMap[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
+        if (mapCopy[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
             return true;
         }
         return false;
     }
   
     private boolean wallForward(){
-        char[][] copyMap = map.getGrid();
+        char[][] mapCopy = map.getGrid();
         int positions[] = convertPosition();
         int offsetX = 1;
         int offsetY = 0;
@@ -139,7 +214,7 @@ public class MobileRobotAI implements Runnable {
         }
         for(int i=-2 ; i<=2;i++){
             int[] wallCoordinates = getWallFromMap(positions[0]+i*offsetY,positions[1]+i*offsetX,positions[2]);
-            if (copyMap[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
+            if (mapCopy[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
                 return true;
             }
         }
@@ -169,6 +244,36 @@ public class MobileRobotAI implements Runnable {
         wallCoordinates[0] = x;
         wallCoordinates[1] = y;
         return wallCoordinates;
+    }
+    
+    private char getCharForward(int x, int y, int direction, int forward, char[][] mapCopy) {
+        //TODO: add range
+        char distance = 0;
+        if(x+forward>mapCopy.length||y+forward>mapCopy[0].length||x-forward<0||y-forward<0){
+            return distance;
+        }
+        try {
+            if(direction==0){
+                direction=360;
+            }
+            switch (direction) {
+            case WEST:
+                distance = mapCopy[x][y - forward];
+                break;
+            case NORTH:
+                distance = mapCopy[x + forward][y];
+                break;
+            case EAST:
+                distance = mapCopy[x][y + forward];
+                break;
+            case SOUTH:
+                distance = mapCopy[x - forward][y];
+                break;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array out of bounds error, still continuing.");
+        }
+        return distance;
     }
 
     
@@ -220,6 +325,19 @@ public class MobileRobotAI implements Runnable {
         result = input.readLine();
     }
     
+    private void turnRightAroundWall(){
+        try {
+            moveForward(WALL_MARGIN + 1);
+
+            turnRight();
+
+            // Go WALL_DISTANCE + 1 forward
+            moveForward(WALL_MARGIN + 1);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
     
     
     
@@ -242,6 +360,9 @@ public class MobileRobotAI implements Runnable {
         int x = ((int) Math.round(position[0]) / 10);
         int y = ((int) Math.round(position[1]) / 10);
         int direction = (int) Math.floor(position[2]);
+        if(direction==0){
+            direction=360;
+        }
 
         positions[0] = x;
         positions[1] = y;
