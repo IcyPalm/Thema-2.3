@@ -80,20 +80,26 @@ public class MobileRobotAI implements Runnable {
 
                 robot.setOutput(output);
                 
-                laserScan();
-                //TODO: Scan sonar
-                
                 while(start){
-                    System.out.println(measures[0]);
+                    laserScan();
+                  //TODO: Scan sonar
                     if(!wallForward()){
-                        moveForward(10);
-                        laserScan();
-                        //TODO: Scan sonar
+                        moveForward(1);
                     }else{
                         System.out.println("found a starting wall, turn left");
                         turnLeft();
                         start=false;
                     }
+                }
+                
+                laserScan();
+                //TODO: Scan sonar
+                
+
+                if(wallRight() && wallForward()){
+                    turnLeft();
+                }else{
+                    moveForward(1);
                 }
                 
                 
@@ -107,58 +113,73 @@ public class MobileRobotAI implements Runnable {
     }
 
    
-
-  
-    private boolean wallForward() {
-        
+    private boolean wallRight(){
         char[][] copyMap = map.getGrid();
         int positions[] = convertPosition();
         
-        int[] wallCoordinates = getWallFromMap(positions[0],positions[1],positions[2]);
+        int direction = getDirectiontoRight(positions[2]);
         
-        System.out.println(copyMap[wallCoordinates[0]][wallCoordinates[1]]);
+        int[] wallCoordinates = getWallFromMap(positions[0], positions[1], direction);
+      
+
         if (copyMap[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
             return true;
+        }
+        return false;
+    }
+  
+    private boolean wallForward(){
+        char[][] copyMap = map.getGrid();
+        int positions[] = convertPosition();
+        int offsetX = 1;
+        int offsetY = 0;
+        if(positions[2]==EAST||positions[2]==WEST){
+            offsetY = 1;
+            offsetX = 0;
+        }
+        for(int i=-2 ; i<=2;i++){
+            int[] wallCoordinates = getWallFromMap(positions[0]+i*offsetY,positions[1]+i*offsetX,positions[2]);
+            if (copyMap[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
+                return true;
+            }
         }
         return false;
     }
     
     private int[] getWallFromMap(int x, int y, int direction) {
         int[] wallCoordinates = new int[2];
-        System.out.println(direction);
+        
+        if(direction==0){
+            direction=360;
+        }
         switch (direction) {
         case WEST:
-            y -= (1+WALL_MARGIN);
+            y -= (1 + WALL_MARGIN);
             break;
         case NORTH:
-            x += (1+WALL_MARGIN);
+            x += (1 + WALL_MARGIN);
             break;
         case EAST:
-            y += (1+WALL_MARGIN);
+            y += (1 + WALL_MARGIN);
             break;
         case SOUTH:
-            x -= (1+WALL_MARGIN);
+            x -= (1 + WALL_MARGIN);
             break;
         }
         wallCoordinates[0] = x;
         wallCoordinates[1] = y;
-
         return wallCoordinates;
     }
 
-    private int[] convertPosition() {
-        int[] positions = new int[3];
+    
 
-        int x = ((int) Math.round(position[0]) / 10);
-        int y = ((int) Math.round(position[1]) / 10);
-        int direction = (int) Math.ceil(position[2]);
-
-        positions[0] = x;
-        positions[1] = y;
-        positions[2] = direction;
-
-        return positions;
-    }
+    
+    
+    
+    
+    
+    
+    
     
     private void laserScan() throws IOException {
         robot.sendCommand("R1.GETPOS");
@@ -172,15 +193,20 @@ public class MobileRobotAI implements Runnable {
     }
     
     
+    
+    
+    
+    
+    
 
 
     private void moveForward(int distance) throws IOException {
-        robot.sendCommand("P1.MOVEFW " + Integer.toString(distance));
+        robot.sendCommand("P1.MOVEFW " + Integer.toString(distance*10));
         result = input.readLine();
     }
 
     private void moveBackward(int distance) throws IOException {
-        robot.sendCommand("P1.MOVEBW " + Integer.toString(distance));
+        robot.sendCommand("P1.MOVEBW " + Integer.toString(distance*10));
         String result = input.readLine();
     }
 
@@ -193,7 +219,36 @@ public class MobileRobotAI implements Runnable {
         robot.sendCommand("P1.ROTATELEFT 90");
         result = input.readLine();
     }
+    
+    
+    
+    
+    
+    
+    
+    private int getDirectiontoRight(int direction) {
+        if (direction == 360) {
+            direction = 90;
+        } else {
+            direction += 90;
+        }
+        
+        return direction;
+    }
+    
+    private int[] convertPosition() {
+        int[] positions = new int[3];
 
+        int x = ((int) Math.round(position[0]) / 10);
+        int y = ((int) Math.round(position[1]) / 10);
+        int direction = (int) Math.floor(position[2]);
+
+        positions[0] = x;
+        positions[1] = y;
+        positions[2] = direction;
+
+        return positions;
+    }
 
     private void parsePosition(String value) {
         int indexInit;
