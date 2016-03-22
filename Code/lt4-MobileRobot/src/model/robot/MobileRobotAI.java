@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import java.util.StringTokenizer;
 
+
 /**
  * Title : The Mobile Robot Explorer Simulation Environment v2.0 Copyright: GNU
  * General Public License as published by the Free Software Foundation Company :
@@ -36,12 +37,6 @@ public class MobileRobotAI implements Runnable {
     private double[] measures;
     private String result;
 
-    private static final int STEP_SIZE = 90;
-    private static final int ROBOT_WIDTH = 40;
-    private static final int ROBOT_LENGTH = 50;
-    
-    
-    
     private static final int NORTH = 360;
     private static final int EAST = 90;
     private static final int SOUTH = 180;
@@ -121,6 +116,10 @@ public class MobileRobotAI implements Runnable {
                     System.err.println("Something went wrong");
                 }
                 
+                if(mapComplete()){
+                    System.out.println("We're done, shutting down now");
+                    running=false;
+                }
                 
                 
             } catch (IOException ioe) {
@@ -310,11 +309,6 @@ public class MobileRobotAI implements Runnable {
         result = input.readLine();
     }
 
-    private void moveBackward(int distance) throws IOException {
-        robot.sendCommand("P1.MOVEBW " + Integer.toString(distance*10));
-        String result = input.readLine();
-    }
-
     private void turnRight() throws IOException {
         robot.sendCommand("P1.ROTATERIGHT 90");
         result = input.readLine();
@@ -336,6 +330,51 @@ public class MobileRobotAI implements Runnable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
+    
+    
+    
+    private boolean mapComplete(){
+        char[][] mapCopy = map.getGrid();
+        for (int i = 0; i < mapCopy.length; i++) {
+            for (int j = 0; j < mapCopy[0].length; j++) {
+                if(mapCopy[i][j] == map.getEmpty()){
+                    if(borderSquare(i,j,map.getUnknown())){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    
+private boolean borderSquare(int row, int column, char cardChar){
+        
+        //row-1
+        if(row>0){
+            if(map.getGrid()[row-1][column] == cardChar){
+                return true;
+            }
+        }
+        //row+1
+        if(row<map.getGrid().length-1){
+            if(map.getGrid()[row+1][column] == cardChar){
+                return true;
+            }
+        }
+        //col-1
+        if(column>0){
+            if(map.getGrid()[row][column-1] == cardChar){
+                return true;
+            }
+        }
+        //col+1
+        if(column<map.getGrid()[0].length-1){
+            if(map.getGrid()[row][column+1] == cardChar){
+                return true;
+            }
+        }
+        return false;
     }
     
     
