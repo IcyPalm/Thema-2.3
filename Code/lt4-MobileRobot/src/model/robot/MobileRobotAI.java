@@ -155,7 +155,7 @@ public class MobileRobotAI implements Runnable {
             System.out.println("Forward scan - Found char: " + forwardBlock);
             
             
-            if(forwardBlock == map.getObstacle() || forwardBlock == map.getUnknown()|| forwardBlock != map.getEmpty()){
+            if(forwardBlock == map.getObstacle() || forwardBlock == map.getUnknown() || (forwardBlock != map.getEmpty() && forwardBlock !=  'r')){
                 System.out.println("Forward scan - Found wall/unknown: " + i);
                 blocksToMove--;
                 break;
