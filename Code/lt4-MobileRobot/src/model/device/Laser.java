@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class Laser extends MeasuringDevice {
   public Laser(String name, MobileRobot robot, Position localPos, Environment environment) {
     super(name, robot, localPos, environment);
+		backgroundColor = Color.cyan;
   }
 
 	protected double read(boolean first) {

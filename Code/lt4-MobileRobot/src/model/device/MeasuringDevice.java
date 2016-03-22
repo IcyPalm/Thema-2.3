@@ -54,7 +54,6 @@ public abstract class MeasuringDevice extends Device {
 
 		this.scanMeasurements = new ArrayList<LaserMeasurement>();
 
-		backgroundColor = Color.cyan;
 		this.addPoint(0, 2);
 		this.addPoint(100, 2);
 		this.addPoint(100, -2);

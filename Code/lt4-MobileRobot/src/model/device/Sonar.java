@@ -26,6 +26,8 @@ import java.util.ArrayList;
 public class Sonar extends MeasuringDevice {
   public Sonar(String name, MobileRobot robot, Position localPos, Environment environment) {
     super(name, robot, localPos, environment);
+    backgroundColor = Color.green;
+    foregroundColor = Color.black;
   }
 
 	protected double read(boolean first) {
