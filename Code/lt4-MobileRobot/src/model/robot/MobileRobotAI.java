@@ -24,15 +24,14 @@ import java.util.StringTokenizer;
  */
 
 public class MobileRobotAI implements Runnable {
-
     private final OccupancyMap map;
     private final MobileRobot robot;
 
     private BufferedReader input;
 
     private boolean running;
-    
-    
+
+
     private double[] position;
     private double[] measures;
     private String result;
@@ -44,7 +43,7 @@ public class MobileRobotAI implements Runnable {
 
     private static final int WALL_MARGIN = 2;
     private static final int LASER_RANGE = 10;
-    
+
     public MobileRobotAI(MobileRobot robot, OccupancyMap map) {
         this.map = map;
         this.robot = robot;
@@ -62,146 +61,139 @@ public class MobileRobotAI implements Runnable {
         this.position = new double[3];
         this.measures = new double[360];
         this.result = "";
-        
+
         boolean start = true;
         boolean turnRight = false;
-        
+
         System.out.println("Robot is starting");
-        
+
         while (running) {
             try {
-                
+
                 PipedInputStream pipeIn = new PipedInputStream();
                 input = new BufferedReader(new InputStreamReader(pipeIn));
                 PrintWriter output = new PrintWriter(new PipedOutputStream(pipeIn), true);
 
                 robot.setOutput(output);
-                
-                while(start){
-                    laserScan();
+
+                while (start) {
+                    scan();
                   //TODO: Scan sonar
-                    if(!wallForward()){
+                    if (!wallForward()) {
                         moveForward(1);
-                    }else{
+                    } else {
                         System.out.println("found a starting wall, turn left");
                         turnLeft();
-                        start=false;
+                        start = false;
                     }
                 }
-                
-                laserScan();
-                //TODO: Scan sonar
-                
 
-                if(wallRight() && wallForward()){
+                scan();
+
+                if (wallRight() && wallForward()) {
                     System.out.println("Turning left");
                     turnLeft();
                     continue;
-                }else if(turnRight){
+                } else if (turnRight) {
                     System.out.println("Turning right");
                     turnRightAroundWall();
                     turnRight = false;
                     continue;
-                }else if(wallRight() && !turnRight){
-                    
+                } else if (wallRight() && !turnRight) {
                     int stepsforward = moveBlocksForward(true);
                     System.out.println("Steps forward: "+stepsforward);
-                    if(stepsforward == 0){
+                    if (stepsforward == 0) {
                         turnRight = true;
-                    }else{
+                    } else {
                         moveForward(stepsforward);
                         System.out.println("Going forward");
                     }
-                }else{
+                } else {
+                    System.out.println("x=" + position[0] + " y=" + position[1] + " d=" + position[2]);
                     System.err.println("Something went wrong");
                 }
-                
+
                 if(mapComplete()){
                     System.out.println("We're done, shutting down now");
                     running=false;
                 }
-                
-                
             } catch (IOException ioe) {
                 System.err.println("execution stopped");
                 running = false;
             }
         }
-
     }
-    
+
     private int moveBlocksForward(boolean wallmode){
         int positions[] = convertPosition();
         int x = positions[0];
         int y = positions[1];
         int direction = positions[2];
-        
+
         int directionToRight = getDirectiontoRight(direction);
-        
+
         int[] rightWall = getWallFromMap(x, y, directionToRight);
-        
+
         int wallX = rightWall[0];
         int wallY = rightWall[1];
-        
+
         int blocksToMove = 0;
-        
+
         char[][] mapCopy = map.getGrid();
-        
-        
+
         for (int i = 1; i < LASER_RANGE; i++) {
             blocksToMove = i;
             char forwardBlock = getCharForward(x, y, direction, i, mapCopy);
             System.out.println("Forward scan - Found char: " + forwardBlock);
-            
-            
-            if(forwardBlock == map.getObstacle() || forwardBlock == map.getUnknown() || (forwardBlock != map.getEmpty() && forwardBlock !=  'r')){
+
+            if (forwardBlock == map.getObstacle() ||
+                forwardBlock == map.getUnknown() ||
+                (forwardBlock != map.getEmpty() && forwardBlock !=  'r')
+            ) {
                 System.out.println("Forward scan - Found wall/unknown: " + i);
                 blocksToMove--;
                 break;
             }
-            
+
         }
         blocksToMove = blocksToMove - WALL_MARGIN;
-        System.out.println("Forward scan - Max distance: "
-                + blocksToMove);
-        
+        System.out.println("Forward scan - Max distance: " + blocksToMove);
+
         if (wallmode) {
             for (int i = 1; i < LASER_RANGE; i++) {
                 char wallBlock = getCharForward(wallX, wallY, direction, i, mapCopy);
                 System.out.println("Wall scan - Found char: " + wallBlock);
-                
-                
-                if(wallBlock == map.getEmpty()){
+
+                if (wallBlock == map.getEmpty()) {
                     System.out.println("Forward Wall - Found end of wall: " + i);
                     i--;
-                    System.out.println("Forward Wall, Blocks: "+blocksToMove+"i: "+i );
-                    if(i<blocksToMove){
+                    System.out.println("Forward Wall, Blocks: " + blocksToMove + "i: " + i);
+                    if (i < blocksToMove) {
                         blocksToMove = i;
                     }
                     break;
                 }
             }
         }
-        System.out.println("Forward wall: "+blocksToMove);
+        System.out.println("Forward wall: " + blocksToMove);
         return blocksToMove;
     }
 
-   
     private boolean wallRight(){
         char[][] mapCopy = map.getGrid();
         int positions[] = convertPosition();
-        
+
         int direction = getDirectiontoRight(positions[2]);
-        
+
         int[] wallCoordinates = getWallFromMap(positions[0], positions[1], direction);
-      
+
 
         if (mapCopy[wallCoordinates[0]][wallCoordinates[1]] == map.getObstacle()) {
             return true;
         }
         return false;
     }
-  
+
     private boolean wallForward(){
         char[][] mapCopy = map.getGrid();
         int positions[] = convertPosition();
@@ -219,10 +211,10 @@ public class MobileRobotAI implements Runnable {
         }
         return false;
     }
-    
+
     private int[] getWallFromMap(int x, int y, int direction) {
         int[] wallCoordinates = new int[2];
-        
+
         if(direction==0){
             direction=360;
         }
@@ -244,7 +236,7 @@ public class MobileRobotAI implements Runnable {
         wallCoordinates[1] = y;
         return wallCoordinates;
     }
-    
+
     private char getCharForward(int x, int y, int direction, int forward, char[][] mapCopy) {
         //TODO: add range
         char distance = 0;
@@ -275,34 +267,44 @@ public class MobileRobotAI implements Runnable {
         return distance;
     }
 
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    private void laserScan() throws IOException {
+    private double[] laserScan() throws IOException {
         robot.sendCommand("R1.GETPOS");
         this.result = input.readLine();
         parsePosition(result);
-        
+
         robot.sendCommand("L1.SCAN");
         String result = input.readLine();
-        parseMeasures(result);
-        map.drawLaserScan(position, measures);  
+        double[] measures = parseMeasures(result);
+        map.drawLaserScan(position, measures);
+        return measures;
     }
-    
-    
-    
-    
-    
-    
-    
 
+    private double[] sonarScan() throws IOException {
+      robot.sendCommand("R1.GETPOS");
+      this.result = input.readLine();
+      parsePosition(result);
+
+      robot.sendCommand("S1.SCAN");
+      String result = input.readLine();
+      double[] measures = parseMeasures(result);
+      map.drawSonarScan(position, measures);
+      return measures;
+    }
+
+    private void scan() throws IOException {
+        double[] laserMeasures = laserScan();
+        double[] sonarMeasures = sonarScan();
+        for (int i = 0; i < 360; i++) {
+            if (laserMeasures[i] < 0) {
+                measures[i] = sonarMeasures[i];
+            } else if (sonarMeasures[i] < 0) {
+                measures[i] = laserMeasures[i];
+            } else {
+                measures[i] = Math.min(laserMeasures[i], sonarMeasures[i]);
+            }
+            // System.out.println("Laser: " + laserMeasures[i] + "; Sonar: " + sonarMeasures[i] + "; Measure: " + measures[i]);
+        }
+    }
 
     private void moveForward(int distance) throws IOException {
         robot.sendCommand("P1.MOVEFW " + Integer.toString(distance*10));
@@ -318,7 +320,7 @@ public class MobileRobotAI implements Runnable {
         robot.sendCommand("P1.ROTATELEFT 90");
         result = input.readLine();
     }
-    
+
     private void turnRightAroundWall(){
         try {
             moveForward(WALL_MARGIN + 1);
@@ -331,9 +333,7 @@ public class MobileRobotAI implements Runnable {
             System.out.println(e.getMessage());
         }
     }
-    
-    
-    
+
     private boolean mapComplete(){
         char[][] mapCopy = map.getGrid();
         for (int i = 0; i < mapCopy.length; i++) {
@@ -347,9 +347,8 @@ public class MobileRobotAI implements Runnable {
         }
         return true;
     }
-    
-private boolean borderSquare(int row, int column, char cardChar){
-        
+
+    private boolean borderSquare(int row, int column, char cardChar){
         //row-1
         if(row>0){
             if(map.getGrid()[row-1][column] == cardChar){
@@ -376,29 +375,23 @@ private boolean borderSquare(int row, int column, char cardChar){
         }
         return false;
     }
-    
-    
-    
-    
-    
-    
-    
+
     private int getDirectiontoRight(int direction) {
         if (direction == 360) {
             direction = 90;
         } else {
             direction += 90;
         }
-        
+
         return direction;
     }
-    
+
     private int[] convertPosition() {
         int[] positions = new int[3];
 
         int x = ((int) Math.round(position[0]) / 10);
         int y = ((int) Math.round(position[1]) / 10);
-        int direction = (int) Math.floor(position[2]);
+        int direction = (int) Math.round(position[2]);
         if(direction==0){
             direction=360;
         }
@@ -431,7 +424,8 @@ private boolean borderSquare(int row, int column, char cardChar){
 
     }
 
-    private void parseMeasures(String value) {
+    private double[] parseMeasures(String value) {
+        double[] measures = new double[360];
         for (int i = 0; i < 360; i++) {
             measures[i] = 100.0;
         }
@@ -453,6 +447,6 @@ private boolean borderSquare(int row, int column, char cardChar){
                 // System.out.println("direction = " + direction + " distance = " + distance);
             }
         }
+        return measures;
     }
-
 }

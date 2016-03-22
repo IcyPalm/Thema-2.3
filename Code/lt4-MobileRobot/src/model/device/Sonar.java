@@ -23,10 +23,11 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-public class Laser extends MeasuringDevice {
-  public Laser(String name, MobileRobot robot, Position localPos, Environment environment) {
+public class Sonar extends MeasuringDevice {
+  public Sonar(String name, MobileRobot robot, Position localPos, Environment environment) {
     super(name, robot, localPos, environment);
-		backgroundColor = Color.cyan;
+    backgroundColor = Color.green;
+    foregroundColor = Color.black;
   }
 
 	protected double read(boolean first) {
@@ -44,7 +45,7 @@ public class Laser extends MeasuringDevice {
 		for (int i = 0; i < environment.getObstacles().size(); i++) {
 			// This is really dirty: the laser uses direct access to environment's obstacles
 			Obstacle obstacle = environment.getObstacles().get(i);
-			if (!obstacle.getOpaque()) {
+			if (obstacle.getOpaque()) {
 				double dist = pointToObstacle(obstacle.getPolygon(), centre, front, first);
 				if (minDistance == -1.0 || (dist > 0 && dist < minDistance)) {
 					minDistance = dist;
@@ -56,7 +57,7 @@ public class Laser extends MeasuringDevice {
 		}
 		if (minDistance > 0) {
 			return minDistance;
-		}
+    }
 		return -1.0;
 	}
 }
