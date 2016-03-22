@@ -19,7 +19,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class OccupancyMap {
-
 	private final char UNKNOWN = 'n';
 	private final char EMPTY = 'e';
 	private final char OBSTACLE = 'o';
@@ -34,7 +33,6 @@ public class OccupancyMap {
 	private final ArrayList<ActionListener> actionListenerList;
 	private Environment environment;
 
-
 	public OccupancyMap() {
 		this.grid = new char[MAP_WIDTH / CELL_DIMENSION][MAP_HEIGHT / CELL_DIMENSION];
 
@@ -45,8 +43,14 @@ public class OccupancyMap {
 		}
 
 		this.actionListenerList = new ArrayList<ActionListener>();
+	}
 
+	private void setRobotPosition() {
+			Position robotPos = environment.getRobot().getPlatform().getRobotPosition();
 
+			int robotX = (int) robotPos.getX() / CELL_DIMENSION;
+			int robotY = (int) robotPos.getY() / CELL_DIMENSION;
+			this.grid[robotX][robotY] = ROBOT;
 	}
 
 	public void drawLaserScan(double position[], double measures[]) {
@@ -70,18 +74,36 @@ public class OccupancyMap {
 			}
 		}
 
-		//paint robot position on grid
-		Position robotPos = environment.getRobot().getPlatform().getRobotPosition();
-		//environment.getRobot().readPosition(robotPos);
-
-		int robotX = (int) robotPos.getX() / CELL_DIMENSION;
-		int robotY = (int) robotPos.getY() / CELL_DIMENSION;
-		this.grid[robotX][robotY] = ROBOT;
-
+		this.setRobotPosition();
 
 		this.processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
 	}
 
+	public void drawSonarScan(double position[], double measures[]) {
+		double rx = Math.round(position[0] + 20.0 * Math.cos(Math.toRadians(position[2])));
+		double ry = Math.round(position[1] + 20.0 * Math.sin(Math.toRadians(position[2])));
+		int dir = (int) Math.round(position[2]);
+
+		for (int i = 0; i < 360; i++) {
+			int d = i - dir;
+			while (d < 0)
+				d += 360;
+			while (d >= 360)
+				d -= 360;
+			double fx = Math.round(rx + measures[d] * Math.cos(Math.toRadians(i)));
+			double fy = Math.round(ry + measures[d] * Math.sin(Math.toRadians(i)));
+
+			if (measures[d] < 100) {
+				drawLaserBeam(rx, ry, fx, fy, true);
+			} else {
+				drawLaserBeam(rx, ry, fx, fy, false);
+			}
+		}
+
+		this.setRobotPosition();
+
+		this.processEvent(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+	}
 
 	/**
 	 * This method allows other objects to register as ActionListeners.
